@@ -1,0 +1,1887 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{Niantic}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}1}]:} \PY{k+kn}{import} \PY{n+nn}{sys}
+        \PY{k+kn}{import} \PY{n+nn}{warnings}
+        \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+        \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{patches} \PY{k}{as} \PY{n+nn}{patches}
+        \PY{k+kn}{import} \PY{n+nn}{seaborn} \PY{k}{as} \PY{n+nn}{sns}
+        \PY{k+kn}{from} \PY{n+nn}{plotly}\PY{n+nn}{.}\PY{n+nn}{plotly} \PY{k}{import} \PY{n}{iplot}
+        \PY{k+kn}{import} \PY{n+nn}{plotly}\PY{n+nn}{.}\PY{n+nn}{graph\PYZus{}objs} \PY{k}{as} \PY{n+nn}{go}
+        \PY{k+kn}{from} \PY{n+nn}{IPython}\PY{n+nn}{.}\PY{n+nn}{display} \PY{k}{import} \PY{n}{Image}
+        \PY{k+kn}{import} \PY{n+nn}{plotly}\PY{n+nn}{.}\PY{n+nn}{offline} \PY{k}{as} \PY{n+nn}{py}
+        \PY{k+kn}{import} \PY{n+nn}{pandas} \PY{k}{as} \PY{n+nn}{pd}
+        \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+        \PY{k+kn}{import} \PY{n+nn}{scipy} \PY{k}{as} \PY{n+nn}{sp}
+        \PY{k+kn}{import} \PY{n+nn}{math}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn} \PY{k}{import} \PY{n}{metrics}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{metrics} \PY{k}{import} \PY{n}{mean\PYZus{}squared\PYZus{}error}\PY{p}{,} \PY{n}{r2\PYZus{}score}\PY{p}{,} \PY{n}{precision\PYZus{}recall\PYZus{}curve}\PY{p}{,}\PY{n}{classification\PYZus{}report}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn} \PY{k}{import} \PY{n}{preprocessing}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{feature\PYZus{}extraction}\PY{n+nn}{.}\PY{n+nn}{text} \PY{k}{import}  \PY{n}{CountVectorizer}\PY{p}{,} \PY{n}{TfidfVectorizer}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{model\PYZus{}selection} \PY{k}{import} \PY{n}{train\PYZus{}test\PYZus{}split}\PY{p}{,} \PY{n}{learning\PYZus{}curve}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{metrics} \PY{k}{import} \PY{n}{average\PYZus{}precision\PYZus{}score}\PY{p}{,} \PY{n}{roc\PYZus{}curve}\PY{p}{,} \PY{n}{auc}\PY{p}{,}\PY{n}{recall\PYZus{}score}\PY{p}{,}\PY{n}{precision\PYZus{}score}
+        \PY{k+kn}{from} \PY{n+nn}{xgboost}\PY{n+nn}{.}\PY{n+nn}{sklearn} \PY{k}{import} \PY{n}{XGBClassifier}
+        
+        \PY{o}{\PYZpc{}}\PY{k}{matplotlib} inline
+        \PY{n}{plt}\PY{o}{.}\PY{n}{style}\PY{o}{.}\PY{n}{use}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ggplot}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{py}\PY{o}{.}\PY{n}{init\PYZus{}notebook\PYZus{}mode}\PY{p}{(}\PY{n}{connected}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+        \PY{n}{warnings}\PY{o}{.}\PY{n}{simplefilter}\PY{p}{(}\PY{n}{action} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ignore}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{category} \PY{o}{=} \PY{n+ne}{RuntimeWarning}\PY{p}{)}
+        \PY{n}{pd}\PY{o}{.}\PY{n}{options}\PY{o}{.}\PY{n}{display}\PY{o}{.}\PY{n}{float\PYZus{}format} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+si}{\PYZob{}:,.2f\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{format}
+        \PY{n}{pd}\PY{o}{.}\PY{n}{options}\PY{o}{.}\PY{n}{mode}\PY{o}{.}\PY{n}{chained\PYZus{}assignment} \PY{o}{=} \PY{k+kc}{None}
+        \PY{n}{pd}\PY{o}{.}\PY{n}{set\PYZus{}option}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{display.max\PYZus{}columns}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+m+mi}{500}\PY{p}{)}
+        \PY{n}{pd}\PY{o}{.}\PY{n}{set\PYZus{}option}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{display.max\PYZus{}rows}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+m+mi}{500}\PY{p}{)}
+\end{Verbatim}
+
+
+    
+    
+    \hypertarget{question-1}{%
+\section{Question 1}\label{question-1}}
+
+Suppose this data is a SQL table called `PokemonStats'. In an SQL
+dialect you are most comfortable with, find the top 3 Pokemon in terms
+of total stats of each type (primary type, Type\_1). Your answer should
+include: 1. the SQL dialect you are using: T-sql
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{1}
+\tightlist
+\item
+  The SQL query used to answer this question;
+\end{enumerate}
+
+\begin{verbatim}
+  SELECT I.Type_1, 
+           I.Name, 
+           I.Total
+    FROM ( SELECT P.Type_1, 
+                  P.Name, 
+                  P.Total, 
+                  ROW_NUMBER() OVER (PARTITION BY P.Type_1 ORDER BY P.Total DESC) as ranks
+             FROM PokemonStats as P ) as I  
+   WHERE I.ranks <= 3
+ORDER BY I.Type_1, I.ranks; 
+\end{verbatim}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{2}
+\tightlist
+\item
+  The returned result:
+\end{enumerate}
+
+(Top 6 rows)
+
+\begin{longtable}[]{@{}lll@{}}
+\toprule
+I.Type\_1 & I.Name & I.Total\tabularnewline
+\midrule
+\endhead
+Bug & Genesect & 600\tabularnewline
+Bug & Volcarona & 550\tabularnewline
+Bug & Yanmega & 515\tabularnewline
+Dark & Yveltal & 680\tabularnewline
+Dark & Darkrai & 600\tabularnewline
+Dark & Hydreigon & 600\tabularnewline
+\ldots{} &\tabularnewline
+\bottomrule
+\end{longtable}
+
+    \hypertarget{question-2}{%
+\section{Question 2}\label{question-2}}
+
+Imagine a new Pokemon game where you are only allowed to collect ONE
+type of Pokemon. Similar to other Pokemon games, your goal is to have
+the strongest battlers and defenders for battles and raids. Which type
+will you pick? Why?
+
+I will go with type ``Rock''. I start with lookiong at how many pokemons
+are in each type:
+
+Since each battle we can rotate our pokemons to fight against our enemy,
+I won't consider type `Flying'. Otherwise I will not jave enough team
+members within my team. Then I want to do narrow down more base on base
+attack and defense. By cheking the distribution them by each type, I can
+use the mean to represent the their stats since the distribution are
+mostly normal.\\
+
+After using `mean' to represernt each group, I plotted them and shade
+the area theat having perfromance abovr average across the groups. Foour
+groups land into the above avrgare area: - Steel / Rock / Ground /
+Dragon
+
+Now let's shift focus to these four groups. I want to include all other
+stats (include special attack, defense etc.), so I just compare the
+`Total' stats by type. Yet, he total stats are not strongly difference.
+
+If viewing their stats on a rador chart, it's clear that dragon has
+overall better performance in attack; steel, on the other hand, is
+strong at defense! So, why do I pick rock?
+
+I want to dive deeper into individual pokemons's attack and defense
+power. Here it shows that in individual, type rock has pokemons the
+either \textbf{high attack} or \textbf{high defense}. Go back the the
+assumption that \textbf{we can rotate our pokemonds during the fight}, I
+can assign out-standing pokemons to fight against my enemy with
+strategy! As the graph states, the rock distributed evenly across the
+attack and defense axis, it's easier for me to have both attacker and
+defender in the team. To conclude, it's based on player's preference
+which type to go to. I personally like to have different charactors at
+my side! 
+
+    \hypertarget{question-3}{%
+\section{Question 3}\label{question-3}}
+
+If you want to predict whether the Pokemon is a legendary Pokemon
+(a.k.a. predict the field isLegendary using other fields), which models
+would you use? List your top 3 models with pros and cons for each one.
+
+After briefly look into the data, we can immediatly found that the data
+is imbalanced. Only 6\% are legandery (I guess it makes sense becaues
+it's ``legendary''). However, we aill need model that can actually
+address imbalance data. Further, the size of data is small. With only
+721 rows of data, we won't able tp have a bunch to train on. To deal
+with imbalanced data, there are multiplel techniques we can apply on,
+one of it is toi choose proper algorithm that affet less by the negtive
+class. Decistion tree is usually better at this, so my top two are both
+tree based. Imbalanced data also imply that the model performance
+baseline should be 93\% or above. Lets check the those legendary
+pokemons eyebally
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  \textbf{XGBOOST}: XGBoost is a gradient boosting Decision Trees model
+  that esembles models which combine many weak models with stonger
+  models. The model iterates the data multiple times and improves every
+  run. Our model AUC is higher then our naive baseline 94\%. Pros are it
+  address imbalanced data by weighting and has high accuracy. But it's
+  sensetive to the outliers and is also harder to optimize the
+  parameters. The dark side of the accuracy it's could overfit if the
+  number of trees are big. This is also the model I pick to implement
+  (Q4-2). Here I'm using AUC instead of accuracy(99\%) to evaluate the
+  model. Due to imbalanced data, using accuracy will leads to accuracy
+  paradox. On the other hand, AUC measures how true positive rate
+  (recall) and false positive rate trade off, and show the are under ROC
+  curve.
+
+  AUC = 0.9710059171597631
+\item
+  Random Forest: Managed imbalanced data well and super easy to
+  implement, Cons are sensetive to the noise, and not dealing with a
+  large number of categories in categorical variables well.
+\item
+  Naive Bayes: It can handle small dataset, and the algorithm of it is
+  generally easir to interpret. However the fit tends to be lower
+  compare with other models; assume the variables are indepedent to each
+  other wich is rarely true in real world too.
+\end{enumerate}
+
+    \hypertarget{question-4}{%
+\section{Question 4}\label{question-4}}
+
+Pick one model and implement it in a language you are most comfortable
+with (preferably Python or R). Please do not use the `Catch\_Rate' field
+(if you are Pokemon fan you know why :). What is your in-sample
+classification accuracy and what fields did you end up using? Your
+answer should include: 1. The code of implementing the model (incl.
+feature processing, model fitting and cross validating); 2. The
+formula/description of your final model along with the accuracy number.
+3. In addition to the code and the model specification, if you choose to
+submit a presentation/ dashboard as part of your writeup, you can
+present your results in any way you like.
+
+    \hypertarget{legendary-prediction}{%
+\section{Legendary Prediction}\label{legendary-prediction}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}43}]:} \PY{c+c1}{\PYZsh{} Import the table, rename the fields}
+         \PY{n}{DT} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{pokemon\PYZus{}data\PYZus{}science\PYZus{}(2).csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{DT} \PY{o}{=} \PY{n}{DT}\PY{o}{.}\PY{n}{rename}\PY{p}{(}\PY{n}{columns} \PY{o}{=} \PY{p}{\PYZob{}}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Type\PYZus{}1}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Type}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} 
+                                   \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Type\PYZus{}2}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Sub\PYZus{}type}\PY{l+s+s2}{\PYZdq{}}\PY{p}{\PYZcb{}}\PY{p}{)}
+         \PY{n}{df} \PY{o}{=} \PY{n}{DT}\PY{o}{.}\PY{n}{copy}\PY{p}{(}\PY{p}{)}
+         \PY{n}{df}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{l+m+mi}{3}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}43}]:}    Number       Name   Type Sub\_type  Total  HP  Attack  Defense  Sp\_Atk  \textbackslash{}
+         0       1  Bulbasaur  Grass   Poison    318  45      49       49      65   
+         1       2    Ivysaur  Grass   Poison    405  60      62       63      80   
+         2       3   Venusaur  Grass   Poison    525  80      82       83     100   
+         
+            Sp\_Def  Speed  Generation  isLegendary  Color  hasGender  Pr\_Male  \textbackslash{}
+         0      65     45           1        False  Green       True     0.88   
+         1      80     60           1        False  Green       True     0.88   
+         2     100     80           1        False  Green       True     0.88   
+         
+           Egg\_Group\_1 Egg\_Group\_2  hasMegaEvolution  Height\_m  Weight\_kg  Catch\_Rate  \textbackslash{}
+         0     Monster       Grass             False      0.71       6.90          45   
+         1     Monster       Grass             False      0.99      13.00          45   
+         2     Monster       Grass              True      2.01     100.00          45   
+         
+           Body\_Style  
+         0  quadruped  
+         1  quadruped  
+         2  quadruped  
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}44}]:} \PY{c+c1}{\PYZsh{} data validation: how did the NAN distributed. }
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{df}\PY{o}{.}\PY{n}{isna}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Number                0
+Name                  0
+Type                  0
+Sub\_type            371
+Total                 0
+HP                    0
+Attack                0
+Defense               0
+Sp\_Atk                0
+Sp\_Def                0
+Speed                 0
+Generation            0
+isLegendary           0
+Color                 0
+hasGender             0
+Pr\_Male              77
+Egg\_Group\_1           0
+Egg\_Group\_2         530
+hasMegaEvolution      0
+Height\_m              0
+Weight\_kg             0
+Catch\_Rate            0
+Body\_Style            0
+dtype: int64
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}45}]:} \PY{c+c1}{\PYZsh{} Observed the NAs}
+         \PY{n}{df}\PY{p}{[}
+             \PY{p}{(}\PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Sub\PYZus{}type}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{isna}\PY{p}{(}\PY{p}{)} \PY{o}{==}\PY{k+kc}{True}\PY{p}{)} \PY{o}{\PYZam{}} 
+             \PY{p}{(}\PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Pr\PYZus{}Male}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{isna}\PY{p}{(}\PY{p}{)} \PY{o}{==}\PY{k+kc}{True}\PY{p}{)} \PY{o}{\PYZam{}}  
+             \PY{p}{(}\PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Egg\PYZus{}Group\PYZus{}2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{isna}\PY{p}{(}\PY{p}{)} \PY{o}{==}\PY{k+kc}{True}\PY{p}{)}\PY{p}{]}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}45}]:}      Number       Name      Type Sub\_type  Total  HP  Attack  Defense  Sp\_Atk  \textbackslash{}
+         99      100    Voltorb  Electric      NaN    330  40      30       50      55   
+         100     101  Electrode  Electric      NaN    480  60      50       70      80   
+         119     120     Staryu     Water      NaN    340  30      45       55      70   
+         131     132      Ditto    Normal      NaN    288  48      48       48      48   
+         136     137    Porygon    Normal      NaN    395  65      60       70      85   
+         
+              Sp\_Def  Speed  Generation  isLegendary   Color  hasGender  Pr\_Male  \textbackslash{}
+         99       55    100           1        False     Red      False      nan   
+         100      80    140           1        False     Red      False      nan   
+         119      55     85           1        False   Brown      False      nan   
+         131      48     48           1        False  Purple      False      nan   
+         136      75     40           1        False    Pink      False      nan   
+         
+             Egg\_Group\_1 Egg\_Group\_2  hasMegaEvolution  Height\_m  Weight\_kg  \textbackslash{}
+         99      Mineral         NaN             False      0.51      10.40   
+         100     Mineral         NaN             False      1.19      66.60   
+         119     Water\_3         NaN             False      0.79      34.50   
+         131       Ditto         NaN             False      0.30       4.00   
+         136     Mineral         NaN             False      0.79      36.50   
+         
+              Catch\_Rate Body\_Style  
+         99          190  head\_only  
+         100          60  head\_only  
+         119         225  head\_base  
+         131          35  head\_only  
+         136          45  head\_legs  
+\end{Verbatim}
+            
+    sub type and egg group (2) are just values missed by random since they
+simply don't have. In this case, 'Not Having a type'IS ALSO A TYPE. NAs
+of Probability of male is directly led by has gender or not. It's also
+meaningful as categorical data so we will impute it too.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}46}]:} \PY{c+c1}{\PYZsh{} Replace NA values as a level}
+         \PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Egg\PYZus{}Group\PYZus{}2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Egg\PYZus{}Group\PYZus{}2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{fillna}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{NONE}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Sub\PYZus{}type}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Sub\PYZus{}type}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{fillna}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{NONE}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} Dig into the \PYZsq{}Pr\PYZus{}Male\PYZsq{} field, found it\PYZsq{}s actually not that many of levels. Thus, can easily transform into categorical. }
+         \PY{n}{df} \PY{o}{=} \PY{n}{df}\PY{o}{.}\PY{n}{replace}\PY{p}{(}\PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Pr\PYZus{}Male}\PY{l+s+s1}{\PYZsq{}} \PY{p}{:} \PY{p}{\PYZob{}} \PY{l+m+mf}{1.0} \PY{p}{:} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{H\PYZhy{}1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+m+mf}{0.875} \PY{p}{:} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{G.8}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+m+mf}{0.75} \PY{p}{:} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{F.7}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+m+mf}{0.5}\PY{p}{:} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{E.5}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+m+mf}{0.25}\PY{p}{:} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{C.2}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+m+mf}{0.125}\PY{p}{:}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{B.1}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{:} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{A\PYZhy{}0}\PY{l+s+s2}{\PYZdq{}}\PY{p}{\PYZcb{}}\PY{p}{\PYZcb{}}\PY{p}{)}
+         \PY{n}{df}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Pr\PYZus{}Male}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{=} \PY{n}{df}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Pr\PYZus{}Male}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{.}\PY{n}{fillna}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{NG}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} Flag the legendary}
+         \PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{leg}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{where}\PY{p}{(}\PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{isLegendary}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{==} \PY{k+kc}{True}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} Confirm we are not having any missing values}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{df}\PY{o}{.}\PY{n}{isna}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Number              0
+Name                0
+Type                0
+Sub\_type            0
+Total               0
+HP                  0
+Attack              0
+Defense             0
+Sp\_Atk              0
+Sp\_Def              0
+Speed               0
+Generation          0
+isLegendary         0
+Color               0
+hasGender           0
+Pr\_Male             0
+Egg\_Group\_1         0
+Egg\_Group\_2         0
+hasMegaEvolution    0
+Height\_m            0
+Weight\_kg           0
+Catch\_Rate          0
+Body\_Style          0
+leg                 0
+dtype: int64
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}47}]:} \PY{c+c1}{\PYZsh{} Start exploratory as our interest of \PYZdq{}Legendary\PYZdq{}}
+         \PY{n}{dfg} \PY{o}{=} \PY{n}{df}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{isLegendary}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{as\PYZus{}index} \PY{o}{=} \PY{k+kc}{False}\PY{p}{)}\PY{o}{.}\PY{n}{count}\PY{p}{(}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n+nb}{round}\PY{p}{(}\PY{p}{(}\PY{n}{dfg}\PY{o}{.}\PY{n}{Number}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]} \PY{o}{/} \PY{n}{dfg}\PY{o}{.}\PY{n}{Number}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{o}{*}\PY{l+m+mf}{100.00}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+si}{\PYZpc{} o}\PY{l+s+s1}{f Pokemons are Legendary.}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+6.4 \% of Pokemons are Legendary.
+
+    \end{Verbatim}
+
+    Organize the columns: Categorical: - `Type', - `Sub\_type', -
+`Generation', - `Color', - `Egg\_Group\_1', - `Egg\_Group\_2', -
+`Body\_Style', - `Pr\_Male'
+
+Numerical: - `Total', - `HP', - `Attack', - `Defense', - `Sp\_Atk', -
+`Sp\_Def', - `Speed', - `Height\_m', - `Weight\_kg'
+
+Binary: - `hasGender', - `hasMegaEvolution'
+
+Predicting Target: - `isLegendary'
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}48}]:} \PY{c+c1}{\PYZsh{} Imbalanced data}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{,} \PY{l+m+mi}{8}\PY{p}{)}\PY{p}{)}
+         \PY{n}{plot} \PY{o}{=} \PY{n}{sns}\PY{o}{.}\PY{n}{catplot}\PY{p}{(}\PY{n}{x}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{isLegendary}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{y}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Name}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{kind} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{bar}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{data}\PY{o}{=}\PY{n}{dfg}\PY{p}{)}
+         
+         \PY{k}{for} \PY{n}{i}\PY{p}{,} \PY{n}{bar} \PY{o+ow}{in} \PY{n+nb}{enumerate}\PY{p}{(}\PY{n}{plot}\PY{o}{.}\PY{n}{ax}\PY{o}{.}\PY{n}{patches}\PY{p}{)}\PY{p}{:}
+             \PY{n}{h} \PY{o}{=} \PY{n}{bar}\PY{o}{.}\PY{n}{get\PYZus{}height}\PY{p}{(}\PY{p}{)}
+             \PY{n}{plot}\PY{o}{.}\PY{n}{ax}\PY{o}{.}\PY{n}{text}\PY{p}{(}
+                 \PY{n}{i}\PY{p}{,} 
+                 \PY{n}{h}\PY{o}{+}\PY{l+m+mi}{10}\PY{p}{,} 
+                 \PY{l+s+s1}{\PYZsq{}}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n+nb}{int}\PY{p}{(}\PY{n}{h}\PY{p}{)}\PY{p}{)}\PY{p}{,}
+                 \PY{n}{ha}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{center}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} 
+                 \PY{n}{va}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{center}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} 
+                 \PY{n}{fontweight}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{bold}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} 
+                 \PY{n}{size}\PY{o}{=}\PY{l+m+mi}{14}\PY{p}{)}
+\end{Verbatim}
+
+
+    
+    \begin{verbatim}
+<Figure size 720x576 with 0 Axes>
+    \end{verbatim}
+
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_13_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}49}]:} \PY{n}{df}\PY{p}{[}\PY{n}{df}\PY{o}{.}\PY{n}{isLegendary} \PY{o}{==} \PY{k+kc}{True}\PY{p}{]}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}49}]:}      Number       Name      Type  Sub\_type  Total   HP  Attack  Defense  \textbackslash{}
+         143     144   Articuno       Ice    Flying    580   90      85      100   
+         144     145     Zapdos  Electric    Flying    580   90      90       85   
+         145     146    Moltres      Fire    Flying    580   90     100       90   
+         149     150     Mewtwo   Psychic      NONE    680  106     110       90   
+         242     243     Raikou  Electric      NONE    580   90      85       75   
+         243     244      Entei      Fire      NONE    580  115     115       85   
+         244     245    Suicune     Water      NONE    580  100      75      115   
+         248     249      Lugia   Psychic    Flying    680  106      90      130   
+         249     250      Ho-Oh      Fire    Flying    680  106     130       90   
+         376     377   Regirock      Rock      NONE    580   80     100      200   
+         377     378     Regice       Ice      NONE    580   80      50      100   
+         378     379  Registeel     Steel      NONE    580   80      75      150   
+         379     380     Latias    Dragon   Psychic    600   80      80       90   
+         380     381     Latios    Dragon   Psychic    600   80      90       80   
+         381     382     Kyogre     Water      NONE    670  100     100       90   
+         382     383    Groudon    Ground      NONE    670  100     150      140   
+         383     384   Rayquaza    Dragon    Flying    680  105     150       90   
+         384     385    Jirachi     Steel   Psychic    600  100     100      100   
+         385     386     Deoxys   Psychic      NONE    600   50     150       50   
+         479     480       Uxie   Psychic      NONE    580   75      75      130   
+         480     481    Mesprit   Psychic      NONE    580   80     105      105   
+         481     482      Azelf   Psychic      NONE    580   75     125       70   
+         482     483     Dialga     Steel    Dragon    680  100     120      120   
+         483     484     Palkia     Water    Dragon    680   90     120      100   
+         484     485    Heatran      Fire     Steel    600   91      90      106   
+         485     486  Regigigas    Normal      NONE    670  110     160      110   
+         486     487   Giratina     Ghost    Dragon    680  150     120      100   
+         490     491    Darkrai      Dark      NONE    600   70      90       90   
+         491     492    Shaymin     Grass      NONE    600  100     100      100   
+         492     493     Arceus    Normal      NONE    720  120     120      120   
+         493     494    Victini   Psychic      Fire    600  100     100      100   
+         637     638   Cobalion     Steel  Fighting    580   91      90      129   
+         638     639  Terrakion      Rock  Fighting    580   91     129       90   
+         639     640   Virizion     Grass  Fighting    580   91      90       72   
+         640     641   Tornadus    Flying      NONE    580   79     115       70   
+         641     642  Thundurus  Electric    Flying    580   79     115       70   
+         642     643   Reshiram    Dragon      Fire    680  100     120      100   
+         643     644     Zekrom    Dragon  Electric    680  100     150      120   
+         644     645   Landorus    Ground    Flying    600   89     125       90   
+         645     646     Kyurem    Dragon       Ice    660  125     130       90   
+         715     716    Xerneas     Fairy      NONE    680  126     131       95   
+         716     717    Yveltal      Dark    Flying    680  126     131       95   
+         717     718    Zygarde    Dragon    Ground    600  108     100      121   
+         718     719    Diancie      Rock     Fairy    600   50     100      150   
+         719     720      Hoopa   Psychic     Ghost    600   80     110       60   
+         720     721  Volcanion      Fire     Water    600   80     110      120   
+         
+              Sp\_Atk  Sp\_Def  Speed  Generation  isLegendary   Color  hasGender  \textbackslash{}
+         143      95     125     85           1         True    Blue      False   
+         144     125      90    100           1         True  Yellow      False   
+         145     125      85     90           1         True  Yellow      False   
+         149     154      90    130           1         True  Purple      False   
+         242     115     100    115           2         True  Yellow      False   
+         243      90      75    100           2         True   Brown      False   
+         244      90     115     85           2         True    Blue      False   
+         248      90     154    110           2         True   White      False   
+         249     110     154     90           2         True     Red      False   
+         376      50     100     50           3         True   Brown      False   
+         377     100     200     50           3         True    Blue      False   
+         378      75     150     50           3         True    Grey      False   
+         379     110     130    110           3         True     Red       True   
+         380     130     110    110           3         True    Blue       True   
+         381     150     140     90           3         True    Blue      False   
+         382     100      90     90           3         True     Red      False   
+         383     150      90     95           3         True   Green      False   
+         384     100     100    100           3         True  Yellow      False   
+         385     150      50    150           3         True     Red      False   
+         479      75     130     95           4         True  Yellow      False   
+         480     105     105     80           4         True    Pink      False   
+         481     125      70    115           4         True    Blue      False   
+         482     150     100     90           4         True   White      False   
+         483     150     120    100           4         True  Purple      False   
+         484     130     106     77           4         True   Brown       True   
+         485      80     110    100           4         True   White      False   
+         486     120     100     90           4         True   Black      False   
+         490     135      90    125           4         True   Black      False   
+         491     100     100    100           4         True   Green      False   
+         492     120     120    120           4         True    Grey      False   
+         493     100     100    100           5         True  Yellow      False   
+         637      90      72    108           5         True    Blue      False   
+         638      72      90    108           5         True    Grey      False   
+         639      90     129    108           5         True   Green      False   
+         640     125      80    111           5         True   Green       True   
+         641     125      80    111           5         True    Blue       True   
+         642     150     120     90           5         True   White      False   
+         643     120     100     90           5         True   Black      False   
+         644     115      80    101           5         True   Brown       True   
+         645     130      90     95           5         True    Grey      False   
+         715     131      98     99           6         True    Blue      False   
+         716     131      98     99           6         True     Red      False   
+         717      81      95     95           6         True   Green      False   
+         718     100     150     50           6         True    Pink      False   
+         719     150     130     70           6         True  Purple      False   
+         720     130      90     70           6         True   Brown      False   
+         
+             Pr\_Male   Egg\_Group\_1 Egg\_Group\_2  hasMegaEvolution  Height\_m  Weight\_kg  \textbackslash{}
+         143      NG  Undiscovered        NONE             False      1.70      55.40   
+         144      NG  Undiscovered        NONE             False      1.60      52.60   
+         145      NG  Undiscovered        NONE             False      2.01      60.00   
+         149      NG  Undiscovered        NONE              True      2.01     122.00   
+         242      NG  Undiscovered        NONE             False      1.91     178.00   
+         243      NG  Undiscovered        NONE             False      2.11     198.00   
+         244      NG  Undiscovered        NONE             False      2.01     187.00   
+         248      NG  Undiscovered        NONE             False      5.21     216.00   
+         249      NG  Undiscovered        NONE             False      3.81     199.00   
+         376      NG  Undiscovered        NONE             False      1.70     230.00   
+         377      NG  Undiscovered        NONE             False      1.80     175.00   
+         378      NG  Undiscovered        NONE             False      1.91     205.00   
+         379     A-0  Undiscovered        NONE              True      1.40      40.00   
+         380     H-1  Undiscovered        NONE              True      2.01      60.00   
+         381      NG  Undiscovered        NONE             False      4.50     352.00   
+         382      NG  Undiscovered        NONE             False      3.51     950.00   
+         383      NG  Undiscovered        NONE              True      7.01     206.50   
+         384      NG  Undiscovered        NONE             False      0.30       1.10   
+         385      NG  Undiscovered        NONE             False      1.70      60.80   
+         479      NG  Undiscovered        NONE             False      0.30       0.30   
+         480      NG  Undiscovered        NONE             False      0.30       0.30   
+         481      NG  Undiscovered        NONE             False      0.30       0.30   
+         482      NG  Undiscovered        NONE             False      5.41     683.00   
+         483      NG  Undiscovered        NONE             False      4.19     336.00   
+         484     E.5  Undiscovered        NONE             False      1.70     430.00   
+         485      NG  Undiscovered        NONE             False      3.71     420.00   
+         486      NG  Undiscovered        NONE             False      6.91     650.00   
+         490      NG  Undiscovered        NONE             False      1.50      50.50   
+         491      NG  Undiscovered        NONE             False      0.20       2.10   
+         492      NG  Undiscovered        NONE             False      3.20     320.00   
+         493      NG  Undiscovered        NONE             False      0.41       4.00   
+         637      NG  Undiscovered        NONE             False      2.11     250.00   
+         638      NG  Undiscovered        NONE             False      1.91     260.00   
+         639      NG  Undiscovered        NONE             False      2.01     200.00   
+         640     H-1  Undiscovered        NONE             False      1.50      63.00   
+         641     H-1  Undiscovered        NONE             False      1.50      61.00   
+         642      NG  Undiscovered        NONE             False      3.20     330.00   
+         643      NG  Undiscovered        NONE             False      2.90     345.00   
+         644     H-1  Undiscovered        NONE             False      1.50      68.00   
+         645      NG  Undiscovered        NONE             False      3.00     325.00   
+         715      NG  Undiscovered        NONE             False      3.00     215.00   
+         716      NG  Undiscovered        NONE             False      5.79     203.00   
+         717      NG  Undiscovered        NONE             False      5.00     305.00   
+         718      NG  Undiscovered        NONE              True      0.71       8.80   
+         719      NG  Undiscovered        NONE             False      0.51       9.00   
+         720      NG  Undiscovered        NONE             False      1.70     195.00   
+         
+              Catch\_Rate        Body\_Style  leg  
+         143           3         two\_wings    1  
+         144           3         two\_wings    1  
+         145           3         two\_wings    1  
+         149           3    bipedal\_tailed    1  
+         242           3         quadruped    1  
+         243           3         quadruped    1  
+         244           3         quadruped    1  
+         248           3         two\_wings    1  
+         249           3         two\_wings    1  
+         376           3  bipedal\_tailless    1  
+         377           3  bipedal\_tailless    1  
+         378           3  bipedal\_tailless    1  
+         379           3         two\_wings    1  
+         380           3         two\_wings    1  
+         381           3         with\_fins    1  
+         382           3    bipedal\_tailed    1  
+         383          45   serpentine\_body    1  
+         384           3  bipedal\_tailless    1  
+         385           3  bipedal\_tailless    1  
+         479           3    bipedal\_tailed    1  
+         480           3    bipedal\_tailed    1  
+         481           3    bipedal\_tailed    1  
+         482           3         quadruped    1  
+         483           3    bipedal\_tailed    1  
+         484           3         quadruped    1  
+         485           3  bipedal\_tailless    1  
+         486           3   serpentine\_body    1  
+         490           3  bipedal\_tailless    1  
+         491          45         quadruped    1  
+         492           3         quadruped    1  
+         493           3  bipedal\_tailless    1  
+         637           3         quadruped    1  
+         638           3         quadruped    1  
+         639           3         quadruped    1  
+         640           3         head\_arms    1  
+         641           3         head\_arms    1  
+         642           3         two\_wings    1  
+         643           3    bipedal\_tailed    1  
+         644           3         head\_arms    1  
+         645           3    bipedal\_tailed    1  
+         715          45         quadruped    1  
+         716          45         two\_wings    1  
+         717           3   serpentine\_body    1  
+         718           3         head\_arms    1  
+         719           3         head\_only    1  
+         720           3         quadruped    1  
+\end{Verbatim}
+            
+    Eyebally scan through all this fields, we found couple fields show
+certain level in that field took over the most of the values -
+\textbf{Egg\_Group\_1}.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}50}]:} \PY{n}{df}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{isLegendary}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Egg\PYZus{}Group\PYZus{}1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{o}{.}\PY{n}{size}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}50}]:} isLegendary  Egg\_Group\_1 
+         False        Amorphous        41
+                      Bug              66
+                      Ditto             1
+                      Dragon           10
+                      Fairy            30
+                      Field           169
+                      Flying           44
+                      Grass            27
+                      Human-Like       37
+                      Mineral          46
+                      Monster          74
+                      Undiscovered     27
+                      Water\_1          74
+                      Water\_2          15
+                      Water\_3          14
+         True         Undiscovered     46
+         dtype: int64
+\end{Verbatim}
+            
+    Let's dig into Egg\_Group\_1. All the legendary pokemons have the
+``Undiscovered'' Egg\_group\_1!
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}51}]:} \PY{n}{df}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{isLegendary}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Egg\PYZus{}Group\PYZus{}2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{o}{.}\PY{n}{size}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}51}]:} isLegendary  Egg\_Group\_2
+         False        Amorphous        8
+                      Bug              2
+                      Dragon          35
+                      Fairy           17
+                      Field           31
+                      Flying           6
+                      Grass           32
+                      Human-Like      15
+                      Mineral          8
+                      Monster          1
+                      NONE           484
+                      Water\_1         13
+                      Water\_2          8
+                      Water\_3         15
+         True         NONE            46
+         dtype: int64
+\end{Verbatim}
+            
+    All legendary pokemons don't have Egg\_group\_2 -- NONE.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}52}]:} \PY{n}{fig} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{15}\PY{p}{,} \PY{l+m+mi}{8}\PY{p}{)}\PY{p}{)}
+         \PY{n}{fig}\PY{o}{.}\PY{n}{add\PYZus{}subplot}\PY{p}{(}\PY{l+m+mi}{121}\PY{p}{)} 
+         \PY{n}{grp} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{df}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Egg\PYZus{}Group\PYZus{}1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{leg}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+         \PY{n}{grp}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{cnt}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n+nb}{list}\PY{p}{(}\PY{n}{df}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Egg\PYZus{}Group\PYZus{}1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{as\PYZus{}index} \PY{o}{=} \PY{k+kc}{False}\PY{p}{)}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{leg}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{count}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{leg}\PY{p}{)}
+         \PY{n}{grp}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{N\PYZus{}leg}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{grp}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{cnt}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{\PYZhy{}} \PY{n}{grp}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{leg}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         \PY{n}{N} \PY{o}{=} \PY{n+nb}{len}\PY{p}{(}\PY{n}{grp}\PY{o}{.}\PY{n}{index}\PY{p}{)}
+         \PY{n}{Legendary} \PY{o}{=} \PY{n}{grp}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{leg}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         \PY{n}{Non\PYZus{}legendary} \PY{o}{=} \PY{n}{grp}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{N\PYZus{}leg}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         \PY{n}{ind} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{n}{N}\PY{p}{)}    
+         \PY{n}{width} \PY{o}{=} \PY{l+m+mf}{0.5}      
+         \PY{n}{p1} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{bar}\PY{p}{(}\PY{n}{ind}\PY{p}{,} \PY{n}{Non\PYZus{}legendary}\PY{p}{,} \PY{n}{width}\PY{p}{)}
+         \PY{n}{p2} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{bar}\PY{p}{(}\PY{n}{ind}\PY{p}{,} \PY{n}{Legendary}\PY{p}{,} \PY{n}{width}\PY{p}{,}
+                      \PY{n}{bottom}\PY{o}{=}\PY{n}{Non\PYZus{}legendary}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Count}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Legendary by Egg\PYZus{}Group}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xticks}\PY{p}{(}\PY{n}{ind}\PY{p}{,} \PY{n}{grp}\PY{o}{.}\PY{n}{index}\PY{p}{,} \PY{n}{rotation} \PY{o}{=} \PY{l+m+mi}{75}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{p}{(}\PY{n}{p1}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{n}{p2}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}\PY{p}{,} \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{NON\PYZus{}Legendary}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Legendary}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}
+         
+         
+         \PY{n}{fig}\PY{o}{.}\PY{n}{add\PYZus{}subplot}\PY{p}{(}\PY{l+m+mi}{122}\PY{p}{)}
+         \PY{n}{grp} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{df}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Egg\PYZus{}Group\PYZus{}2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{leg}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+         \PY{n}{grp}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{cnt}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n+nb}{list}\PY{p}{(}\PY{n}{df}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Egg\PYZus{}Group\PYZus{}2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{as\PYZus{}index} \PY{o}{=} \PY{k+kc}{False}\PY{p}{)}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{leg}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{count}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{leg}\PY{p}{)}
+         \PY{n}{grp}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{N\PYZus{}leg}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{grp}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{cnt}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{\PYZhy{}} \PY{n}{grp}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{leg}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         \PY{n}{N} \PY{o}{=} \PY{n+nb}{len}\PY{p}{(}\PY{n}{grp}\PY{o}{.}\PY{n}{index}\PY{p}{)}
+         \PY{n}{Legendary} \PY{o}{=} \PY{n}{grp}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{leg}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         \PY{n}{Non\PYZus{}legendary} \PY{o}{=} \PY{n}{grp}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{N\PYZus{}leg}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         \PY{n}{ind} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{n}{N}\PY{p}{)}    
+         \PY{n}{width} \PY{o}{=} \PY{l+m+mf}{0.5}      
+         \PY{n}{p1} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{bar}\PY{p}{(}\PY{n}{ind}\PY{p}{,} \PY{n}{Non\PYZus{}legendary}\PY{p}{,} \PY{n}{width}\PY{p}{)}
+         \PY{n}{p2} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{bar}\PY{p}{(}\PY{n}{ind}\PY{p}{,} \PY{n}{Legendary}\PY{p}{,} \PY{n}{width}\PY{p}{,}
+                      \PY{n}{bottom}\PY{o}{=}\PY{n}{Non\PYZus{}legendary}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Count}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Legendary by Egg\PYZus{}Group\PYZus{}2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xticks}\PY{p}{(}\PY{n}{ind}\PY{p}{,} \PY{n}{grp}\PY{o}{.}\PY{n}{index}\PY{p}{,} \PY{n}{rotation} \PY{o}{=} \PY{l+m+mi}{75}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{p}{(}\PY{n}{p1}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{n}{p2}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}\PY{p}{,} \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{NON\PYZus{}Legendary}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Legendary}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_20_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \textbf{Charts clearly show that these two categorical fields will have
+good predicting power!}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}53}]:} \PY{n}{fig} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{15}\PY{p}{,} \PY{l+m+mi}{8}\PY{p}{)}\PY{p}{)}
+         \PY{n}{fig}\PY{o}{.}\PY{n}{add\PYZus{}subplot}\PY{p}{(}\PY{l+m+mi}{121}\PY{p}{)} 
+         \PY{n}{grp} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{df}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Type}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{leg}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+         \PY{n}{grp}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{cnt}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n+nb}{list}\PY{p}{(}\PY{n}{df}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Type}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{as\PYZus{}index} \PY{o}{=} \PY{k+kc}{False}\PY{p}{)}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{leg}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{count}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{leg}\PY{p}{)}
+         \PY{n}{grp}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{N\PYZus{}leg}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{grp}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{cnt}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{\PYZhy{}} \PY{n}{grp}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{leg}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         \PY{n}{N} \PY{o}{=} \PY{n+nb}{len}\PY{p}{(}\PY{n}{grp}\PY{o}{.}\PY{n}{index}\PY{p}{)}
+         \PY{n}{Legendary} \PY{o}{=} \PY{n}{grp}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{leg}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         \PY{n}{Non\PYZus{}legendary} \PY{o}{=} \PY{n}{grp}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{N\PYZus{}leg}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         \PY{n}{ind} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{n}{N}\PY{p}{)}    
+         \PY{n}{width} \PY{o}{=} \PY{l+m+mf}{0.5}      
+         \PY{n}{p1} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{bar}\PY{p}{(}\PY{n}{ind}\PY{p}{,} \PY{n}{Non\PYZus{}legendary}\PY{p}{,} \PY{n}{width}\PY{p}{)}
+         \PY{n}{p2} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{bar}\PY{p}{(}\PY{n}{ind}\PY{p}{,} \PY{n}{Legendary}\PY{p}{,} \PY{n}{width}\PY{p}{,}
+                      \PY{n}{bottom}\PY{o}{=}\PY{n}{Non\PYZus{}legendary}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Count}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Legendary by Type}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xticks}\PY{p}{(}\PY{n}{ind}\PY{p}{,} \PY{n}{grp}\PY{o}{.}\PY{n}{index}\PY{p}{,} \PY{n}{rotation} \PY{o}{=} \PY{l+m+mi}{75}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{p}{(}\PY{n}{p1}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{n}{p2}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}\PY{p}{,} \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{NON\PYZus{}Legendary}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Legendary}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}
+         
+         \PY{n}{fig}\PY{o}{.}\PY{n}{add\PYZus{}subplot}\PY{p}{(}\PY{l+m+mi}{122}\PY{p}{)} 
+         \PY{n}{grp} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{df}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Sub\PYZus{}type}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{leg}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+         \PY{n}{grp}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{cnt}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n+nb}{list}\PY{p}{(}\PY{n}{df}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Sub\PYZus{}type}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{as\PYZus{}index} \PY{o}{=} \PY{k+kc}{False}\PY{p}{)}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{leg}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{count}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{leg}\PY{p}{)}
+         \PY{n}{grp}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{N\PYZus{}leg}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{grp}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{cnt}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{\PYZhy{}} \PY{n}{grp}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{leg}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         \PY{n}{N} \PY{o}{=} \PY{n+nb}{len}\PY{p}{(}\PY{n}{grp}\PY{o}{.}\PY{n}{index}\PY{p}{)}
+         \PY{n}{Legendary} \PY{o}{=} \PY{n}{grp}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{leg}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         \PY{n}{Non\PYZus{}legendary} \PY{o}{=} \PY{n}{grp}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{N\PYZus{}leg}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         \PY{n}{ind} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{n}{N}\PY{p}{)}    
+         \PY{n}{width} \PY{o}{=} \PY{l+m+mf}{0.5}      
+         \PY{n}{p1} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{bar}\PY{p}{(}\PY{n}{ind}\PY{p}{,} \PY{n}{Non\PYZus{}legendary}\PY{p}{,} \PY{n}{width}\PY{p}{)}
+         \PY{n}{p2} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{bar}\PY{p}{(}\PY{n}{ind}\PY{p}{,} \PY{n}{Legendary}\PY{p}{,} \PY{n}{width}\PY{p}{,}
+                      \PY{n}{bottom}\PY{o}{=}\PY{n}{Non\PYZus{}legendary}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Count}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Legendary by Sub Type}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xticks}\PY{p}{(}\PY{n}{ind}\PY{p}{,} \PY{n}{grp}\PY{o}{.}\PY{n}{index}\PY{p}{,} \PY{n}{rotation} \PY{o}{=} \PY{l+m+mi}{75}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{p}{(}\PY{n}{p1}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{n}{p2}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}\PY{p}{,} \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{NON\PYZus{}Legendary}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Legendary}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_22_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    HMMMM, other categorical filed dosen't have that much interactio with
+legendary or not though. Psychic and dragon seems to have more legendary
+pokemons, yet I think it's due to legendary pokemons usually have higher
+stats (and these are higher stat types). We will chart total's
+relationship with legendary later.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}54}]:} \PY{n}{fig} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{15}\PY{p}{,} \PY{l+m+mi}{8}\PY{p}{)}\PY{p}{)}
+         \PY{n}{fig}\PY{o}{.}\PY{n}{add\PYZus{}subplot}\PY{p}{(}\PY{l+m+mi}{121}\PY{p}{)} 
+         \PY{n}{grp} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{df}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Color}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{leg}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+         \PY{n}{grp}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{cnt}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n+nb}{list}\PY{p}{(}\PY{n}{df}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Color}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{as\PYZus{}index} \PY{o}{=} \PY{k+kc}{False}\PY{p}{)}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{leg}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{count}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{leg}\PY{p}{)}
+         \PY{n}{grp}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{N\PYZus{}leg}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{grp}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{cnt}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{\PYZhy{}} \PY{n}{grp}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{leg}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         \PY{n}{N} \PY{o}{=} \PY{n+nb}{len}\PY{p}{(}\PY{n}{grp}\PY{o}{.}\PY{n}{index}\PY{p}{)}
+         \PY{n}{Legendary} \PY{o}{=} \PY{n}{grp}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{leg}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         \PY{n}{Non\PYZus{}legendary} \PY{o}{=} \PY{n}{grp}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{N\PYZus{}leg}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         \PY{n}{ind} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{n}{N}\PY{p}{)}    
+         \PY{n}{width} \PY{o}{=} \PY{l+m+mf}{0.5}      
+         \PY{n}{p1} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{bar}\PY{p}{(}\PY{n}{ind}\PY{p}{,} \PY{n}{Non\PYZus{}legendary}\PY{p}{,} \PY{n}{width}\PY{p}{)}
+         \PY{n}{p2} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{bar}\PY{p}{(}\PY{n}{ind}\PY{p}{,} \PY{n}{Legendary}\PY{p}{,} \PY{n}{width}\PY{p}{,}
+                      \PY{n}{bottom}\PY{o}{=}\PY{n}{Non\PYZus{}legendary}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Count}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Legendary by Color}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xticks}\PY{p}{(}\PY{n}{ind}\PY{p}{,} \PY{n}{grp}\PY{o}{.}\PY{n}{index}\PY{p}{,} \PY{n}{rotation} \PY{o}{=} \PY{l+m+mi}{75}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{p}{(}\PY{n}{p1}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{n}{p2}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}\PY{p}{,} \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{NON\PYZus{}Legendary}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Legendary}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}
+         
+         \PY{n}{fig}\PY{o}{.}\PY{n}{add\PYZus{}subplot}\PY{p}{(}\PY{l+m+mi}{122}\PY{p}{)} 
+         \PY{n}{grp} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{df}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Body\PYZus{}Style}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{leg}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+         \PY{n}{grp}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{cnt}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n+nb}{list}\PY{p}{(}\PY{n}{df}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Body\PYZus{}Style}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{as\PYZus{}index} \PY{o}{=} \PY{k+kc}{False}\PY{p}{)}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{leg}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{count}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{leg}\PY{p}{)}
+         \PY{n}{grp}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{N\PYZus{}leg}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{grp}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{cnt}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{\PYZhy{}} \PY{n}{grp}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{leg}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         \PY{n}{N} \PY{o}{=} \PY{n+nb}{len}\PY{p}{(}\PY{n}{grp}\PY{o}{.}\PY{n}{index}\PY{p}{)}
+         \PY{n}{Legendary} \PY{o}{=} \PY{n}{grp}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{leg}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         \PY{n}{Non\PYZus{}legendary} \PY{o}{=} \PY{n}{grp}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{N\PYZus{}leg}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         \PY{n}{ind} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{n}{N}\PY{p}{)}    
+         \PY{n}{width} \PY{o}{=} \PY{l+m+mf}{0.5}      
+         \PY{n}{p1} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{bar}\PY{p}{(}\PY{n}{ind}\PY{p}{,} \PY{n}{Non\PYZus{}legendary}\PY{p}{,} \PY{n}{width}\PY{p}{)}
+         \PY{n}{p2} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{bar}\PY{p}{(}\PY{n}{ind}\PY{p}{,} \PY{n}{Legendary}\PY{p}{,} \PY{n}{width}\PY{p}{,}
+                      \PY{n}{bottom}\PY{o}{=}\PY{n}{Non\PYZus{}legendary}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Count}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Legendary by Body style}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xticks}\PY{p}{(}\PY{n}{ind}\PY{p}{,} \PY{n}{grp}\PY{o}{.}\PY{n}{index}\PY{p}{,} \PY{n}{rotation} \PY{o}{=} \PY{l+m+mi}{75}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{p}{(}\PY{n}{p1}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{n}{p2}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}\PY{p}{,} \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{NON\PYZus{}Legendary}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Legendary}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_24_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    Not surprisingly, color and body style do not have strong pattern.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}55}]:} \PY{n}{fig} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{15}\PY{p}{,} \PY{l+m+mi}{8}\PY{p}{)}\PY{p}{)}
+         \PY{n}{fig}\PY{o}{.}\PY{n}{add\PYZus{}subplot}\PY{p}{(}\PY{l+m+mi}{121}\PY{p}{)} 
+         \PY{n}{grp} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{df}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Pr\PYZus{}Male}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{leg}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+         \PY{n}{grp}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{cnt}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n+nb}{list}\PY{p}{(}\PY{n}{df}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Pr\PYZus{}Male}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{as\PYZus{}index} \PY{o}{=} \PY{k+kc}{False}\PY{p}{)}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{leg}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{count}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{leg}\PY{p}{)}
+         \PY{n}{grp}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{N\PYZus{}leg}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{grp}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{cnt}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{\PYZhy{}} \PY{n}{grp}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{leg}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         \PY{n}{N} \PY{o}{=} \PY{n+nb}{len}\PY{p}{(}\PY{n}{grp}\PY{o}{.}\PY{n}{index}\PY{p}{)}
+         \PY{n}{Legendary} \PY{o}{=} \PY{n}{grp}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{leg}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         \PY{n}{Non\PYZus{}legendary} \PY{o}{=} \PY{n}{grp}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{N\PYZus{}leg}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         \PY{n}{ind} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{n}{N}\PY{p}{)}    
+         \PY{n}{width} \PY{o}{=} \PY{l+m+mf}{0.5}      
+         \PY{n}{p1} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{bar}\PY{p}{(}\PY{n}{ind}\PY{p}{,} \PY{n}{Non\PYZus{}legendary}\PY{p}{,} \PY{n}{width}\PY{p}{)}
+         \PY{n}{p2} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{bar}\PY{p}{(}\PY{n}{ind}\PY{p}{,} \PY{n}{Legendary}\PY{p}{,} \PY{n}{width}\PY{p}{,}
+                      \PY{n}{bottom}\PY{o}{=}\PY{n}{Non\PYZus{}legendary}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Count}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Legendary by Male Level}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xticks}\PY{p}{(}\PY{n}{ind}\PY{p}{,} \PY{n}{grp}\PY{o}{.}\PY{n}{index}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{p}{(}\PY{n}{p1}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{n}{p2}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}\PY{p}{,} \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{NON\PYZus{}Legendary}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Legendary}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}
+         
+         
+         \PY{n}{fig}\PY{o}{.}\PY{n}{add\PYZus{}subplot}\PY{p}{(}\PY{l+m+mi}{122}\PY{p}{)} 
+         \PY{n}{grp} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{df}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{hasGender}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{leg}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+         \PY{n}{grp}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{cnt}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n+nb}{list}\PY{p}{(}\PY{n}{df}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{hasGender}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{as\PYZus{}index} \PY{o}{=} \PY{k+kc}{False}\PY{p}{)}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{leg}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{count}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{leg}\PY{p}{)}
+         \PY{n}{grp}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{N\PYZus{}leg}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{grp}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{cnt}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{\PYZhy{}} \PY{n}{grp}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{leg}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         \PY{n}{N} \PY{o}{=} \PY{n+nb}{len}\PY{p}{(}\PY{n}{grp}\PY{o}{.}\PY{n}{index}\PY{p}{)}
+         \PY{n}{Legendary} \PY{o}{=} \PY{n}{grp}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{leg}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         \PY{n}{Non\PYZus{}legendary} \PY{o}{=} \PY{n}{grp}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{N\PYZus{}leg}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         \PY{n}{ind} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{n}{N}\PY{p}{)}    
+         \PY{n}{width} \PY{o}{=} \PY{l+m+mf}{0.5}      
+         \PY{n}{p1} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{bar}\PY{p}{(}\PY{n}{ind}\PY{p}{,} \PY{n}{Non\PYZus{}legendary}\PY{p}{,} \PY{n}{width}\PY{p}{)}
+         \PY{n}{p2} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{bar}\PY{p}{(}\PY{n}{ind}\PY{p}{,} \PY{n}{Legendary}\PY{p}{,} \PY{n}{width}\PY{p}{,}
+                      \PY{n}{bottom}\PY{o}{=}\PY{n}{Non\PYZus{}legendary}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Count}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Legendary by if Has Gender}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xticks}\PY{p}{(}\PY{n}{ind}\PY{p}{,} \PY{n}{grp}\PY{o}{.}\PY{n}{index}\PY{p}{,} \PY{n}{rotation} \PY{o}{=} \PY{l+m+mi}{75}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{p}{(}\PY{n}{p1}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{n}{p2}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}\PY{p}{,} \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{NON\PYZus{}Legendary}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Legendary}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_26_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    Here has an interesting finding: \textbf{Legendary pokemons are usually
+No gender}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}56}]:} \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{8}\PY{p}{,} \PY{l+m+mi}{5}\PY{p}{)}\PY{p}{)}
+         \PY{n}{grp} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{df}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{hasMegaEvolution}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{leg}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+         \PY{n}{grp}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{cnt}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n+nb}{list}\PY{p}{(}\PY{n}{df}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{hasMegaEvolution}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{as\PYZus{}index} \PY{o}{=} \PY{k+kc}{False}\PY{p}{)}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{leg}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{count}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{leg}\PY{p}{)}
+         \PY{n}{grp}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{N\PYZus{}leg}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{grp}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{cnt}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{\PYZhy{}} \PY{n}{grp}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{leg}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         \PY{n}{N} \PY{o}{=} \PY{n+nb}{len}\PY{p}{(}\PY{n}{grp}\PY{o}{.}\PY{n}{index}\PY{p}{)}
+         \PY{n}{Legendary} \PY{o}{=} \PY{n}{grp}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{leg}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         \PY{n}{Non\PYZus{}legendary} \PY{o}{=} \PY{n}{grp}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{N\PYZus{}leg}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         \PY{n}{ind} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{n}{N}\PY{p}{)}    
+         \PY{n}{width} \PY{o}{=} \PY{l+m+mf}{0.5}      
+         \PY{n}{p1} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{bar}\PY{p}{(}\PY{n}{ind}\PY{p}{,} \PY{n}{Non\PYZus{}legendary}\PY{p}{,} \PY{n}{width}\PY{p}{)}
+         \PY{n}{p2} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{bar}\PY{p}{(}\PY{n}{ind}\PY{p}{,} \PY{n}{Legendary}\PY{p}{,} \PY{n}{width}\PY{p}{,}
+                      \PY{n}{bottom}\PY{o}{=}\PY{n}{Non\PYZus{}legendary}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Count}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Legendary by if Mega Evolution}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xticks}\PY{p}{(}\PY{n}{ind}\PY{p}{,} \PY{n}{grp}\PY{o}{.}\PY{n}{index}\PY{p}{,} \PY{n}{rotation} \PY{o}{=} \PY{l+m+mi}{75}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{p}{(}\PY{n}{p1}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{n}{p2}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}\PY{p}{,} \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{NON\PYZus{}Legendary}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Legendary}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_28_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    Not really seeing a pattern.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}57}]:} \PY{c+c1}{\PYZsh{} df\PYZus{}num = df[[\PYZsq{}Total\PYZsq{}, \PYZsq{}HP\PYZsq{}, \PYZsq{}Attack\PYZsq{}, \PYZsq{}Defense\PYZsq{}, \PYZsq{}Sp\PYZus{}Atk\PYZsq{}, \PYZsq{}Sp\PYZus{}Def\PYZsq{}, \PYZsq{}Speed\PYZsq{}, \PYZsq{}Height\PYZus{}m\PYZsq{}, \PYZsq{}Weight\PYZus{}kg\PYZsq{},\PYZsq{}isLegendary\PYZsq{}]]}
+         \PY{c+c1}{\PYZsh{} df\PYZus{}num.head()}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}58}]:} \PY{c+c1}{\PYZsh{} Plot the relationship between numerical data: }
+         \PY{n}{sns}\PY{o}{.}\PY{n}{set}\PY{p}{(}\PY{p}{)}
+         \PY{n}{sns}\PY{o}{.}\PY{n}{set\PYZus{}context}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{talk}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{sns}\PY{o}{.}\PY{n}{set\PYZus{}style}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{darkgrid}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         
+         \PY{n}{grid} \PY{o}{=} \PY{n}{sns}\PY{o}{.}\PY{n}{FacetGrid}\PY{p}{(}\PY{n}{df}\PY{p}{,}
+                              \PY{n}{hue}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{isLegendary}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{height}\PY{o}{=}\PY{l+m+mi}{5}\PY{p}{,} \PY{n}{aspect}\PY{o}{=}\PY{l+m+mi}{3}\PY{p}{)}
+         \PY{n}{grid}\PY{o}{.}\PY{n}{map}\PY{p}{(}\PY{n}{sns}\PY{o}{.}\PY{n}{distplot}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Total}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{grid}\PY{o}{.}\PY{n}{add\PYZus{}legend}\PY{p}{(}\PY{p}{)}
+         
+         \PY{n}{grid} \PY{o}{=} \PY{n}{sns}\PY{o}{.}\PY{n}{FacetGrid}\PY{p}{(}\PY{n}{df}\PY{p}{,}
+                              \PY{n}{hue}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{isLegendary}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{height}\PY{o}{=}\PY{l+m+mi}{5}\PY{p}{,} \PY{n}{aspect}\PY{o}{=}\PY{l+m+mi}{3}\PY{p}{)}
+         \PY{n}{grid}\PY{o}{.}\PY{n}{map}\PY{p}{(}\PY{n}{sns}\PY{o}{.}\PY{n}{distplot}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Weight\PYZus{}kg}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{grid}\PY{o}{.}\PY{n}{add\PYZus{}legend}\PY{p}{(}\PY{p}{)}
+         
+         \PY{n}{grid} \PY{o}{=} \PY{n}{sns}\PY{o}{.}\PY{n}{FacetGrid}\PY{p}{(}\PY{n}{df}\PY{p}{,}
+                              \PY{n}{hue}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{isLegendary}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{height}\PY{o}{=}\PY{l+m+mi}{5}\PY{p}{,} \PY{n}{aspect}\PY{o}{=}\PY{l+m+mi}{3}\PY{p}{)}
+         \PY{n}{grid}\PY{o}{.}\PY{n}{map}\PY{p}{(}\PY{n}{sns}\PY{o}{.}\PY{n}{distplot}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Height\PYZus{}m}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{grid}\PY{o}{.}\PY{n}{add\PYZus{}legend}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}58}]:} <seaborn.axisgrid.FacetGrid at 0x1a1d5482e8>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_31_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_31_2.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_31_3.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    Total is a good indicator since the distributions of legendary and
+non-legendary are far from each other. However, legendary pokemon's
+weight and height's range are big, covered the whole X-axis with little
+predicting power.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}59}]:} \PY{n}{df}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}59}]:}    Number        Name   Type Sub\_type  Total  HP  Attack  Defense  Sp\_Atk  \textbackslash{}
+         0       1   Bulbasaur  Grass   Poison    318  45      49       49      65   
+         1       2     Ivysaur  Grass   Poison    405  60      62       63      80   
+         2       3    Venusaur  Grass   Poison    525  80      82       83     100   
+         3       4  Charmander   Fire     NONE    309  39      52       43      60   
+         4       5  Charmeleon   Fire     NONE    405  58      64       58      80   
+         
+            Sp\_Def  Speed  Generation  isLegendary  Color  hasGender Pr\_Male  \textbackslash{}
+         0      65     45           1        False  Green       True     G.8   
+         1      80     60           1        False  Green       True     G.8   
+         2     100     80           1        False  Green       True     G.8   
+         3      50     65           1        False    Red       True     G.8   
+         4      65     80           1        False    Red       True     G.8   
+         
+           Egg\_Group\_1 Egg\_Group\_2  hasMegaEvolution  Height\_m  Weight\_kg  Catch\_Rate  \textbackslash{}
+         0     Monster       Grass             False      0.71       6.90          45   
+         1     Monster       Grass             False      0.99      13.00          45   
+         2     Monster       Grass              True      2.01     100.00          45   
+         3     Monster      Dragon             False      0.61       8.50          45   
+         4     Monster      Dragon             False      1.09      19.00          45   
+         
+                Body\_Style  leg  
+         0       quadruped    0  
+         1       quadruped    0  
+         2       quadruped    0  
+         3  bipedal\_tailed    0  
+         4  bipedal\_tailed    0  
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}60}]:} \PY{n}{X} \PY{o}{=} \PY{n}{df}\PY{o}{.}\PY{n}{copy}\PY{p}{(}\PY{p}{)}
+         \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{seed}\PY{p}{(}\PY{l+m+mi}{5}\PY{p}{)}
+         \PY{n}{Y} \PY{o}{=} \PY{n}{X}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{leg}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         \PY{k}{del} \PY{n}{X}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{leg}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         
+                     \PY{c+c1}{\PYZsh{} Not including identifiers}
+         \PY{n}{X} \PY{o}{=} \PY{n}{X}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Name}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Number}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                     \PY{c+c1}{\PYZsh{} Only use \PYZsq{}Total\PYZsq{} stat in our model because all stats variables are correlated }
+                     \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{HP}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Attack}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Defense}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Sp\PYZus{}Atk}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Sp\PYZus{}Def}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Speed}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}  
+                     \PY{c+c1}{\PYZsh{} Could be fully represented by Pr\PYZus{}male}
+                     \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{hasGender}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                     \PY{c+c1}{\PYZsh{} Company generation / assigned values}
+                     \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Generation}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Catch\PYZus{}Rate}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} 
+                     \PY{c+c1}{\PYZsh{} Target Variable}
+                     \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{isLegendary}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} 
+                     \PY{c+c1}{\PYZsh{} Not seeing strong pattern }
+                     \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Color}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Height\PYZus{}m}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Weight\PYZus{}kg}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Body\PYZus{}Style}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{hasMegaEvolution}\PY{l+s+s1}{\PYZsq{}}
+                     \PY{p}{]}\PY{p}{,}\PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+         
+         \PY{n}{X}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}60}]:}     Type Sub\_type  Total Pr\_Male Egg\_Group\_1 Egg\_Group\_2
+         0  Grass   Poison    318     G.8     Monster       Grass
+         1  Grass   Poison    405     G.8     Monster       Grass
+         2  Grass   Poison    525     G.8     Monster       Grass
+         3   Fire     NONE    309     G.8     Monster      Dragon
+         4   Fire     NONE    405     G.8     Monster      Dragon
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}61}]:} \PY{c+c1}{\PYZsh{} Feature engineering }
+         \PY{n}{X}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{e1\PYZus{}undiscovered}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{where}\PY{p}{(}\PY{n}{X}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Egg\PYZus{}Group\PYZus{}1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{==}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Undiscovered}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{)}
+         \PY{n}{X}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{e2\PYZus{}none}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{where}\PY{p}{(}\PY{n}{X}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Egg\PYZus{}Group\PYZus{}2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{==}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{NONE}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}62}]:} \PY{n}{X} \PY{o}{=} \PY{n}{X}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Egg\PYZus{}Group\PYZus{}1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Egg\PYZus{}Group\PYZus{}2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Sub\PYZus{}type}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{axis} \PY{o}{=} \PY{l+m+mi}{1}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}63}]:} \PY{c+c1}{\PYZsh{} Using 0/1 flags to replace string false \PYZam{} true}
+         \PY{n}{X} \PY{o}{=} \PY{n}{X}\PY{o}{.}\PY{n}{replace}\PY{p}{(}\PY{p}{\PYZob{}}\PY{k+kc}{True} \PY{p}{:}\PY{l+m+mi}{1}\PY{p}{,} \PY{k+kc}{False}\PY{p}{:}\PY{l+m+mi}{0}\PY{p}{\PYZcb{}}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} Binary all the categorical variables}
+         \PY{n}{X} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{get\PYZus{}dummies}\PY{p}{(}\PY{n}{X}\PY{p}{,} \PY{n}{columns} \PY{o}{=} \PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Type}\PY{l+s+s2}{\PYZdq{}} 
+                                          \PY{c+c1}{\PYZsh{},\PYZdq{}Sub\PYZus{}type\PYZdq{}}
+                                          \PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Pr\PYZus{}Male}\PY{l+s+s2}{\PYZdq{}}
+                                          \PY{c+c1}{\PYZsh{},\PYZdq{}Egg\PYZus{}Group\PYZus{}1\PYZdq{}}
+                                          \PY{c+c1}{\PYZsh{},\PYZdq{}Egg\PYZus{}Group\PYZus{}2\PYZdq{}}
+                                         \PY{p}{]}\PY{p}{,} \PY{n}{drop\PYZus{}first} \PY{o}{=} \PY{k+kc}{True}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}64}]:} \PY{c+c1}{\PYZsh{} Split the dataset}
+         \PY{n}{trainX}\PY{p}{,} \PY{n}{testX}\PY{p}{,} \PY{n}{trainY}\PY{p}{,} \PY{n}{testY} \PY{o}{=} \PY{n}{train\PYZus{}test\PYZus{}split}\PY{p}{(}\PY{n}{X}\PY{p}{,} \PY{n}{Y}\PY{p}{,} \PY{n}{test\PYZus{}size} \PY{o}{=} \PY{l+m+mf}{0.33}\PY{p}{,} \PY{n}{random\PYZus{}state} \PY{o}{=} \PY{l+m+mi}{93}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} Add in weights to penalize the dominant class in the dataset}
+         \PY{n}{weights} \PY{o}{=} \PY{p}{(}\PY{p}{(}\PY{n}{Y} \PY{o}{==} \PY{l+m+mi}{0}\PY{p}{)}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{)} \PY{o}{/} \PY{p}{(}\PY{l+m+mf}{1.0} \PY{o}{*} \PY{p}{(}\PY{n}{Y} \PY{o}{==} \PY{l+m+mi}{1}\PY{p}{)}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} Model }
+         \PY{n}{clf} \PY{o}{=} \PY{n}{XGBClassifier}\PY{p}{(}\PY{n}{max\PYZus{}depth} \PY{o}{=} \PY{l+m+mi}{8}\PY{p}{,} \PY{n}{scale\PYZus{}pos\PYZus{}weight} \PY{o}{=} \PY{n}{weights}\PY{p}{,} \PY{n}{n\PYZus{}jobs} \PY{o}{=} \PY{l+m+mi}{4}\PY{p}{)}
+         \PY{n}{probabilities} \PY{o}{=} \PY{n}{clf}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{trainX}\PY{p}{,} \PY{n}{trainY}\PY{p}{)}\PY{o}{.}\PY{n}{predict\PYZus{}proba}\PY{p}{(}\PY{n}{testX}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{AUPRC = }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{average\PYZus{}precision\PYZus{}score}\PY{p}{(}\PY{n}{testY}\PY{p}{,} \PYZbs{}
+                                                       \PY{n}{probabilities}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+AUPRC = 0.9710059171597631
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}65}]:} \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{metrics} \PY{k}{import} \PY{n}{accuracy\PYZus{}score}
+         \PY{n}{y\PYZus{}pred} \PY{o}{=} \PY{n}{clf}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{testX}\PY{p}{)}
+         \PY{n}{predictions} \PY{o}{=} \PY{p}{[}\PY{n}{value} \PY{k}{for} \PY{n}{value} \PY{o+ow}{in} \PY{n}{y\PYZus{}pred}\PY{p}{]}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Accuracy = }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{accuracy\PYZus{}score}\PY{p}{(}\PY{n}{testY}\PY{p}{,} \PY{n}{predictions}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{clf}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Accuracy = 0.9915966386554622
+XGBClassifier(base\_score=0.5, booster='gbtree', colsample\_bylevel=1,
+              colsample\_bytree=1, gamma=0, learning\_rate=0.1, max\_delta\_step=0,
+              max\_depth=8, min\_child\_weight=1, missing=None, n\_estimators=100,
+              n\_jobs=4, nthread=None, objective='binary:logistic',
+              random\_state=0, reg\_alpha=0, reg\_lambda=1,
+              scale\_pos\_weight=14.673913043478262, seed=None, silent=True,
+              subsample=1)
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}66}]:} \PY{k+kn}{from} \PY{n+nn}{xgboost} \PY{k}{import} \PY{n}{plot\PYZus{}importance}
+         \PY{n}{fig} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize} \PY{o}{=} \PY{p}{(}\PY{l+m+mi}{14}\PY{p}{,} \PY{l+m+mi}{9}\PY{p}{)}\PY{p}{)}
+         \PY{n}{ax} \PY{o}{=} \PY{n}{fig}\PY{o}{.}\PY{n}{add\PYZus{}subplot}\PY{p}{(}\PY{l+m+mi}{111}\PY{p}{)}
+         
+         \PY{n}{colours} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{cm}\PY{o}{.}\PY{n}{Set1}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{9}\PY{p}{)}\PY{p}{)}
+         
+         \PY{n}{ax} \PY{o}{=} \PY{n}{plot\PYZus{}importance}\PY{p}{(}\PY{n}{clf}\PY{p}{,} \PY{n}{height} \PY{o}{=} \PY{l+m+mi}{1}\PY{p}{,} \PY{n}{color} \PY{o}{=} \PY{n}{colours}\PY{p}{,} \PY{n}{grid} \PY{o}{=} \PY{k+kc}{False}\PY{p}{,} \PYZbs{}
+                              \PY{n}{show\PYZus{}values} \PY{o}{=} \PY{k+kc}{False}\PY{p}{,} \PY{n}{importance\PYZus{}type} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{cover}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{ax} \PY{o}{=} \PY{n}{ax}\PY{p}{)}\PY{p}{;}
+         \PY{k}{for} \PY{n}{axis} \PY{o+ow}{in} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{top}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{bottom}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{left}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{right}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{:}
+                     \PY{n}{ax}\PY{o}{.}\PY{n}{spines}\PY{p}{[}\PY{n}{axis}\PY{p}{]}\PY{o}{.}\PY{n}{set\PYZus{}linewidth}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{)}
+                 
+         \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{importance score}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{size} \PY{o}{=} \PY{l+m+mi}{16}\PY{p}{)}\PY{p}{;}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{features}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{size} \PY{o}{=} \PY{l+m+mi}{16}\PY{p}{)}\PY{p}{;}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}yticklabels}\PY{p}{(}\PY{n}{ax}\PY{o}{.}\PY{n}{get\PYZus{}yticklabels}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{n}{size} \PY{o}{=} \PY{l+m+mi}{12}\PY{p}{)}\PY{p}{;}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Ordering of features by importance to the model learnt}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{size} \PY{o}{=} \PY{l+m+mi}{20}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}66}]:} Text(0.5,1,'Ordering of features by importance to the model learnt')
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_40_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}67}]:} \PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}}
+         \PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{} Learning Curve \PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}}
+         \PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}}
+         \PY{n}{trainSizes}\PY{p}{,} \PY{n}{trainScores}\PY{p}{,} \PY{n}{crossValScores} \PY{o}{=} \PY{n}{learning\PYZus{}curve}\PY{p}{(}\PY{n}{clf}\PY{p}{,} \PY{n}{trainX}\PY{p}{,} \PY{n}{trainY}\PY{p}{,} \PY{n}{scoring} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{average\PYZus{}precision}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         
+         \PY{n}{trainScoresMean} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{trainScores}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+         \PY{n}{trainScoresStd} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{std}\PY{p}{(}\PY{n}{trainScores}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+         \PY{n}{crossValScoresMean} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{crossValScores}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+         \PY{n}{crossValScoresStd} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{std}\PY{p}{(}\PY{n}{crossValScores}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+         
+         \PY{n}{colours} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{cm}\PY{o}{.}\PY{n}{tab10}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{9}\PY{p}{)}\PY{p}{)}
+         
+         \PY{n}{fig} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize} \PY{o}{=} \PY{p}{(}\PY{l+m+mi}{15}\PY{p}{,} \PY{l+m+mi}{8}\PY{p}{)}\PY{p}{)}
+         \PY{n}{fig}\PY{o}{.}\PY{n}{add\PYZus{}subplot}\PY{p}{(}\PY{l+m+mi}{121}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{fill\PYZus{}between}\PY{p}{(}\PY{n}{trainSizes}\PY{p}{,} \PY{n}{trainScoresMean} \PY{o}{\PYZhy{}} \PY{n}{trainScoresStd}\PY{p}{,}
+             \PY{n}{trainScoresMean} \PY{o}{+} \PY{n}{trainScoresStd}\PY{p}{,} \PY{n}{alpha}\PY{o}{=}\PY{l+m+mf}{0.1}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{n}{colours}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{fill\PYZus{}between}\PY{p}{(}\PY{n}{trainSizes}\PY{p}{,} \PY{n}{crossValScoresMean} \PY{o}{\PYZhy{}} \PY{n}{crossValScoresStd}\PY{p}{,}
+             \PY{n}{crossValScoresMean} \PY{o}{+} \PY{n}{crossValScoresStd}\PY{p}{,} \PY{n}{alpha}\PY{o}{=}\PY{l+m+mf}{0.1}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{n}{colours}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{trainSizes}\PY{p}{,} \PY{n}{trainScores}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{axis} \PY{o}{=} \PY{l+m+mi}{1}\PY{p}{)}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{o\PYZhy{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{label} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{train}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PYZbs{}
+                  \PY{n}{color} \PY{o}{=} \PY{n}{colours}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{trainSizes}\PY{p}{,} \PY{n}{crossValScores}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{axis} \PY{o}{=} \PY{l+m+mi}{1}\PY{p}{)}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{o\PYZhy{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{label} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{cross\PYZhy{}val}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PYZbs{}
+                  \PY{n}{color} \PY{o}{=} \PY{n}{colours}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
+         
+         \PY{n}{ax} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{gca}\PY{p}{(}\PY{p}{)}
+         \PY{k}{for} \PY{n}{axis} \PY{o+ow}{in} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{top}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{bottom}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{left}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{right}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{:}
+             \PY{n}{ax}\PY{o}{.}\PY{n}{spines}\PY{p}{[}\PY{n}{axis}\PY{p}{]}\PY{o}{.}\PY{n}{set\PYZus{}linewidth}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{)}
+             
+         \PY{n}{handles}\PY{p}{,} \PY{n}{labels} \PY{o}{=} \PY{n}{ax}\PY{o}{.}\PY{n}{get\PYZus{}legend\PYZus{}handles\PYZus{}labels}\PY{p}{(}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{n}{handles}\PY{p}{,} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{train}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{cross\PYZhy{}val}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{bbox\PYZus{}to\PYZus{}anchor}\PY{o}{=}\PY{p}{(}\PY{l+m+mf}{0.8}\PY{p}{,} \PY{l+m+mf}{0.15}\PY{p}{)}\PY{p}{,} \PYZbs{}
+                        \PY{n}{loc}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{,} \PY{n}{borderaxespad}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{,} \PY{n}{fontsize} \PY{o}{=} \PY{l+m+mi}{16}\PY{p}{)}\PY{p}{;}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{training set size}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{size} \PY{o}{=} \PY{l+m+mi}{16}\PY{p}{)}\PY{p}{;} 
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{AUPRC}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{size} \PY{o}{=} \PY{l+m+mi}{16}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Learning curve}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}}
+         \PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{} R O C \PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}}
+         \PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}}
+         
+         \PY{n}{fpr}\PY{p}{,} \PY{n}{tpr}\PY{p}{,} \PY{n}{\PYZus{}} \PY{o}{=} \PY{n}{roc\PYZus{}curve}\PY{p}{(}\PY{n}{testY}\PY{o}{.}\PY{n}{values}\PY{p}{,} \PY{n}{clf}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{trainX}\PY{p}{,} \PY{n}{trainY}\PY{p}{)}\PY{o}{.}\PY{n}{predict\PYZus{}proba}\PY{p}{(}\PY{n}{testX}\PY{p}{)}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
+         \PY{n}{roc\PYZus{}auc} \PY{o}{=} \PY{n}{auc}\PY{p}{(}\PY{n}{fpr}\PY{p}{,} \PY{n}{tpr}\PY{p}{)}
+         
+         \PY{n}{fig}\PY{o}{.}\PY{n}{add\PYZus{}subplot}\PY{p}{(}\PY{l+m+mi}{122}\PY{p}{)} 
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{fpr}\PY{p}{,} \PY{n}{tpr}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{darkorange}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ROC curve (area = }\PY{l+s+si}{\PYZpc{}0.5f}\PY{l+s+s1}{)}\PY{l+s+s1}{\PYZsq{}} \PY{o}{\PYZpc{}} \PY{n}{roc\PYZus{}auc}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{navy}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{linestyle}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZhy{}\PYZhy{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}  \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{No Skill}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlim}\PY{p}{(}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mf}{0.02}\PY{p}{,} \PY{l+m+mf}{1.0}\PY{p}{]}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylim}\PY{p}{(}\PY{p}{[}\PY{l+m+mf}{0.0}\PY{p}{,} \PY{l+m+mf}{1.05}\PY{p}{]}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{False Positive Rate}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{True Positive Rate}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ROC curve}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{n}{loc}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{lower right}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+/anaconda3/lib/python3.6/site-packages/sklearn/model\_selection/\_split.py:1978: FutureWarning:
+
+The default value of cv will change from 3 to 5 in version 0.22. Specify it explicitly to silence this warning.
+
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_41_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \hypertarget{data-exploratory}{%
+\section{Data Exploratory}\label{data-exploratory}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}27}]:} \PY{c+c1}{\PYZsh{} Reading in the dataset }
+         \PY{n}{DT} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{pokemon\PYZus{}data\PYZus{}science\PYZus{}(2).csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{DT}\PY{o}{.}\PY{n}{info}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+         \PY{n}{DT}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+<class 'pandas.core.frame.DataFrame'>
+RangeIndex: 721 entries, 0 to 720
+Data columns (total 23 columns):
+Number              721 non-null int64
+Name                721 non-null object
+Type\_1              721 non-null object
+Type\_2              350 non-null object
+Total               721 non-null int64
+HP                  721 non-null int64
+Attack              721 non-null int64
+Defense             721 non-null int64
+Sp\_Atk              721 non-null int64
+Sp\_Def              721 non-null int64
+Speed               721 non-null int64
+Generation          721 non-null int64
+isLegendary         721 non-null bool
+Color               721 non-null object
+hasGender           721 non-null bool
+Pr\_Male             644 non-null float64
+Egg\_Group\_1         721 non-null object
+Egg\_Group\_2         191 non-null object
+hasMegaEvolution    721 non-null bool
+Height\_m            721 non-null float64
+Weight\_kg           721 non-null float64
+Catch\_Rate          721 non-null int64
+Body\_Style          721 non-null object
+dtypes: bool(3), float64(3), int64(10), object(7)
+memory usage: 114.8+ KB
+None
+
+    \end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}27}]:}    Number        Name Type\_1  Type\_2  Total  HP  Attack  Defense  Sp\_Atk  \textbackslash{}
+         0       1   Bulbasaur  Grass  Poison    318  45      49       49      65   
+         1       2     Ivysaur  Grass  Poison    405  60      62       63      80   
+         2       3    Venusaur  Grass  Poison    525  80      82       83     100   
+         3       4  Charmander   Fire     NaN    309  39      52       43      60   
+         4       5  Charmeleon   Fire     NaN    405  58      64       58      80   
+         5       6   Charizard   Fire  Flying    534  78      84       78     109   
+         6       7    Squirtle  Water     NaN    314  44      48       65      50   
+         7       8   Wartortle  Water     NaN    405  59      63       80      65   
+         8       9   Blastoise  Water     NaN    530  79      83      100      85   
+         9      10    Caterpie    Bug     NaN    195  45      30       35      20   
+         
+            Sp\_Def  Speed  Generation  isLegendary  Color  hasGender  Pr\_Male  \textbackslash{}
+         0      65     45           1        False  Green       True     0.88   
+         1      80     60           1        False  Green       True     0.88   
+         2     100     80           1        False  Green       True     0.88   
+         3      50     65           1        False    Red       True     0.88   
+         4      65     80           1        False    Red       True     0.88   
+         5      85    100           1        False    Red       True     0.88   
+         6      64     43           1        False   Blue       True     0.88   
+         7      80     58           1        False   Blue       True     0.88   
+         8     105     78           1        False   Blue       True     0.88   
+         9      20     45           1        False  Green       True     0.50   
+         
+           Egg\_Group\_1 Egg\_Group\_2  hasMegaEvolution  Height\_m  Weight\_kg  Catch\_Rate  \textbackslash{}
+         0     Monster       Grass             False      0.71       6.90          45   
+         1     Monster       Grass             False      0.99      13.00          45   
+         2     Monster       Grass              True      2.01     100.00          45   
+         3     Monster      Dragon             False      0.61       8.50          45   
+         4     Monster      Dragon             False      1.09      19.00          45   
+         5     Monster      Dragon              True      1.70      90.50          45   
+         6     Monster     Water\_1             False      0.51       9.00          45   
+         7     Monster     Water\_1             False      0.99      22.50          45   
+         8     Monster     Water\_1              True      1.60      85.50          45   
+         9         Bug         NaN             False      0.30       2.90         255   
+         
+                Body\_Style  
+         0       quadruped  
+         1       quadruped  
+         2       quadruped  
+         3  bipedal\_tailed  
+         4  bipedal\_tailed  
+         5  bipedal\_tailed  
+         6  bipedal\_tailed  
+         7  bipedal\_tailed  
+         8  bipedal\_tailed  
+         9       insectoid  
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}28}]:} \PY{c+c1}{\PYZsh{} clean up, only take the fields I need to analysis}
+         \PY{n}{DT} \PY{o}{=} \PY{n}{DT}\PY{o}{.}\PY{n}{set\PYZus{}index}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Number}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{df} \PY{o}{=} \PY{n}{DT}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{:}\PY{l+m+mi}{10}\PY{p}{]}\PY{o}{.}\PY{n}{copy}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{rename}\PY{p}{(}\PY{n}{columns} \PY{o}{=} \PY{p}{\PYZob{}}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Type\PYZus{}1}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Type}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} 
+                                                       \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Type\PYZus{}2}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Sub\PYZus{}type}\PY{l+s+s2}{\PYZdq{}}\PY{p}{\PYZcb{}}\PY{p}{)}
+         \PY{n}{df}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}28}]:}               Name   Type Sub\_type  Total  HP  Attack  Defense  Sp\_Atk  \textbackslash{}
+         Number                                                                   
+         1        Bulbasaur  Grass   Poison    318  45      49       49      65   
+         2          Ivysaur  Grass   Poison    405  60      62       63      80   
+         3         Venusaur  Grass   Poison    525  80      82       83     100   
+         4       Charmander   Fire      NaN    309  39      52       43      60   
+         5       Charmeleon   Fire      NaN    405  58      64       58      80   
+         
+                 Sp\_Def  Speed  
+         Number                 
+         1           65     45  
+         2           80     60  
+         3          100     80  
+         4           50     65  
+         5           65     80  
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}29}]:} \PY{c+c1}{\PYZsh{} Checking if the pokemons are unique }
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Name of the Pokemon has no duplicate: }\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n+nb}{len}\PY{p}{(}\PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Name}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{unique}\PY{p}{(}\PY{p}{)}\PY{p}{)} \PY{o}{==} \PY{n+nb}{len}\PY{p}{(}\PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Name}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{} Checkin missing values}
+         \PY{n}{df}\PY{o}{.}\PY{n}{isna}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{n}{axis} \PY{o}{=} \PY{l+m+mi}{0}\PY{p}{)} 
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Name of the Pokemon has no duplicate:  True
+
+    \end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}29}]:} Name          0
+         Type          0
+         Sub\_type    371
+         Total         0
+         HP            0
+         Attack        0
+         Defense       0
+         Sp\_Atk        0
+         Sp\_Def        0
+         Speed         0
+         dtype: int64
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}30}]:} \PY{c+c1}{\PYZsh{} Based on \PYZsq{}Type\PYZsq{}, explotory the data}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{df}\PY{o}{.}\PY{n}{describe}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+       Total     HP  Attack  Defense  Sp\_Atk  Sp\_Def  Speed
+count 721.00 721.00  721.00   721.00  721.00  721.00 721.00
+mean  417.95  68.38   75.01    70.81   68.74   69.29  65.71
+std   109.66  25.85   28.98    29.30   28.79   27.02  27.28
+min   180.00   1.00    5.00     5.00   10.00   20.00   5.00
+25\%   320.00  50.00   53.00    50.00   45.00   50.00  45.00
+50\%   424.00  65.00   74.00    65.00   65.00   65.00  65.00
+75\%   499.00  80.00   95.00    85.00   90.00   85.00  85.00
+max   720.00 255.00  165.00   230.00  154.00  230.00 160.00
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}31}]:} \PY{n+nb}{print}\PY{p}{(}\PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Type}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{unique}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Type}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{unique}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+['Grass' 'Fire' 'Water' 'Bug' 'Normal' 'Poison' 'Electric' 'Ground'
+ 'Fairy' 'Fighting' 'Psychic' 'Rock' 'Ghost' 'Ice' 'Dragon' 'Dark' 'Steel'
+ 'Flying']
+18
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}32}]:} \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{15}\PY{p}{,}\PY{l+m+mi}{6}\PY{p}{)}\PY{p}{)}
+         
+         \PY{n}{grp} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{df}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Type}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{as\PYZus{}index} \PY{o}{=} \PY{k+kc}{False}\PY{p}{)}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Name}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{count}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+         \PY{n}{grp} \PY{o}{=} \PY{n}{grp}\PY{o}{.}\PY{n}{sort\PYZus{}values}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Name}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{o}{.}\PY{n}{reset\PYZus{}index}\PY{p}{(}\PY{n}{drop}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+         
+         \PY{n}{groupedvalues} \PY{o}{=} \PY{n}{grp}
+         \PY{n}{pal} \PY{o}{=} \PY{n}{sns}\PY{o}{.}\PY{n}{color\PYZus{}palette}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Blues\PYZus{}d}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n+nb}{len}\PY{p}{(}\PY{n}{groupedvalues}\PY{p}{)}\PY{p}{)}
+         \PY{n}{rank} \PY{o}{=} \PY{n}{groupedvalues}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Name}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{.}\PY{n}{argsort}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{argsort}\PY{p}{(}\PY{p}{)} 
+         \PY{n}{g} \PY{o}{=} \PY{n}{sns}\PY{o}{.}\PY{n}{barplot}\PY{p}{(}\PY{n}{x}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Type}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{y}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Name}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{data}\PY{o}{=}\PY{n}{groupedvalues}\PY{p}{,} \PY{n}{palette}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{n}{pal}\PY{p}{[}\PY{p}{:}\PY{p}{:}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{p}{[}\PY{n}{rank}\PY{p}{]}\PY{p}{)}
+         
+         \PY{k}{for} \PY{n}{index}\PY{p}{,} \PY{n}{row} \PY{o+ow}{in} \PY{n}{groupedvalues}\PY{o}{.}\PY{n}{iterrows}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+             \PY{n}{g}\PY{o}{.}\PY{n}{text}\PY{p}{(}\PY{n}{row}\PY{o}{.}\PY{n}{name}\PY{p}{,} \PY{n}{row}\PY{o}{.}\PY{n}{Name}\PY{p}{,} \PY{n+nb}{round}\PY{p}{(}\PY{n}{row}\PY{o}{.}\PY{n}{Name}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{black}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{ha}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{center}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         
+         \PY{n}{g}\PY{o}{.}\PY{n}{set\PYZus{}title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Pokemon Count by Type}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{g}\PY{o}{.}\PY{n}{set\PYZus{}xticklabels}\PY{p}{(}\PY{n}{g}\PY{o}{.}\PY{n}{get\PYZus{}xticklabels}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{n}{rotation}\PY{o}{=}\PY{l+m+mi}{45}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_48_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}33}]:} \PY{n}{sns}\PY{o}{.}\PY{n}{set}\PY{p}{(}\PY{n}{style}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ticks}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)} 
+         \PY{n}{g} \PY{o}{=} \PY{n}{sns}\PY{o}{.}\PY{n}{FacetGrid}\PY{p}{(}\PY{n}{df}\PY{p}{,} \PY{n}{col}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Type}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{col\PYZus{}wrap}\PY{o}{=}\PY{l+m+mi}{6}\PY{p}{,} \PY{n}{height}\PY{o}{=}\PY{l+m+mi}{2} \PY{p}{)}
+         \PY{n}{g}\PY{o}{.}\PY{n}{map}\PY{p}{(}\PY{n}{sns}\PY{o}{.}\PY{n}{distplot}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Attack}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{steelblue}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{kde} \PY{o}{=} \PY{k+kc}{True}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{subplots\PYZus{}adjust}\PY{p}{(}\PY{n}{top}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_49_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}34}]:} \PY{n}{sns}\PY{o}{.}\PY{n}{set}\PY{p}{(}\PY{n}{style}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ticks}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)} 
+         \PY{n}{g} \PY{o}{=} \PY{n}{sns}\PY{o}{.}\PY{n}{FacetGrid}\PY{p}{(}\PY{n}{df}\PY{p}{,} \PY{n}{col}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Type}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{col\PYZus{}wrap}\PY{o}{=}\PY{l+m+mi}{6}\PY{p}{,} \PY{n}{height}\PY{o}{=}\PY{l+m+mi}{2} \PY{p}{)}
+         \PY{n}{g}\PY{o}{.}\PY{n}{map}\PY{p}{(}\PY{n}{sns}\PY{o}{.}\PY{n}{distplot}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Defense}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{steelblue}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{kde} \PY{o}{=} \PY{k+kc}{True}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{subplots\PYZus{}adjust}\PY{p}{(}\PY{n}{top}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_50_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}35}]:} \PY{n}{grp} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{p}{)}
+         \PY{n}{grp} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{df}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Type}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Name}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{count}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{to\PYZus{}frame}\PY{p}{(}\PY{n}{name}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{count}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}
+         \PY{n}{grp}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ATK\PYZus{}mean}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{df}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Type}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Attack}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{o}{.}\PY{n}{values}
+         \PY{n}{grp}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{DFS\PYZus{}mean}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{df}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Type}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Defense}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{o}{.}\PY{n}{values}
+         \PY{n}{grp}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{HP\PYZus{}mean}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{df}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Type}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{HP}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{o}{.}\PY{n}{values}
+         \PY{n}{grp}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{SP\PYZus{}ATK\PYZus{}mean}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{df}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Type}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Sp\PYZus{}Atk}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{o}{.}\PY{n}{values}
+         \PY{n}{grp}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{SP\PYZus{}DFS\PYZus{}mean}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{df}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Type}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Sp\PYZus{}Def}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{o}{.}\PY{n}{values}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}36}]:} \PY{n}{grp} \PY{o}{=} \PY{n}{grp}\PY{o}{.}\PY{n}{reset\PYZus{}index}\PY{p}{(}\PY{p}{)}
+         \PY{n}{grp}\PY{o}{.}\PY{n}{info}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+<class 'pandas.core.frame.DataFrame'>
+RangeIndex: 18 entries, 0 to 17
+Data columns (total 7 columns):
+Type           18 non-null object
+count          18 non-null int64
+ATK\_mean       18 non-null float64
+DFS\_mean       18 non-null float64
+HP\_mean        18 non-null float64
+SP\_ATK\_mean    18 non-null float64
+SP\_DFS\_mean    18 non-null float64
+dtypes: float64(5), int64(1), object(1)
+memory usage: 1.1+ KB
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}37}]:} \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{12}\PY{p}{,}\PY{l+m+mi}{10}\PY{p}{)}\PY{p}{)}
+         
+         \PY{n}{p1}\PY{o}{=}\PY{n}{sns}\PY{o}{.}\PY{n}{scatterplot}\PY{p}{(}\PY{n}{data}\PY{o}{=}\PY{n}{grp}\PY{p}{,} 
+                            \PY{n}{x}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ATK\PYZus{}mean}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} 
+                            \PY{n}{y}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{DFS\PYZus{}mean}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} 
+                            \PY{n}{size}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{HP\PYZus{}mean}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+                            \PY{n}{sizes}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{600}\PY{p}{)}\PY{p}{,}
+                            \PY{n}{alpha}\PY{o}{=}\PY{l+m+mf}{0.5}\PY{p}{,}
+                            \PY{n}{marker}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{o}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} 
+                            \PY{n}{hue}\PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{HP\PYZus{}mean}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         
+         \PY{k}{for} \PY{n}{line} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{n}{grp}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}\PY{p}{:}
+              \PY{n}{p1}\PY{o}{.}\PY{n}{text}\PY{p}{(}\PY{n}{grp}\PY{o}{.}\PY{n}{ATK\PYZus{}mean}\PY{p}{[}\PY{n}{line}\PY{p}{]}\PY{p}{,} \PY{n}{grp}\PY{o}{.}\PY{n}{DFS\PYZus{}mean}\PY{p}{[}\PY{n}{line}\PY{p}{]}\PY{p}{,} \PY{n}{grp}\PY{o}{.}\PY{n}{Type}\PY{p}{[}\PY{n}{line}\PY{p}{]}\PY{p}{,} \PY{n}{horizontalalignment}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{left}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{size}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{medium}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{black}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          
+         \PY{n}{plt}\PY{o}{.}\PY{n}{axvline}\PY{p}{(}\PY{n}{grp}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ATK\PYZus{}mean}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{r}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{axhline}\PY{p}{(}\PY{n}{grp}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{DFS\PYZus{}mean}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{r}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         
+         \PY{n}{p1}\PY{o}{.}\PY{n}{set}\PY{p}{(}\PY{n}{ylim} \PY{o}{=} \PY{p}{(}\PY{n+nb}{min}\PY{p}{(}\PY{n}{grp}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{DFS\PYZus{}mean}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{)}\PY{o}{\PYZhy{}}\PY{l+m+mi}{10}\PY{p}{,} 
+                        \PY{n+nb}{max}\PY{p}{(}\PY{n}{grp}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{DFS\PYZus{}mean}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{+}\PY{l+m+mi}{10}\PY{p}{)}\PY{p}{)}\PY{p}{,} 
+                \PY{n}{xlim} \PY{o}{=} \PY{p}{(}\PY{n+nb}{min}\PY{p}{(}\PY{n}{grp}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ATK\PYZus{}mean}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{\PYZhy{}}\PY{l+m+mi}{10}\PY{p}{)}\PY{p}{,} 
+                        \PY{n+nb}{max}\PY{p}{(}\PY{n}{grp}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ATK\PYZus{}mean}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{+}\PY{l+m+mi}{10}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+                
+         \PY{n}{p1}\PY{o}{.}\PY{n}{add\PYZus{}patch}\PY{p}{(}
+         \PY{n}{patches}\PY{o}{.}\PY{n}{Rectangle}\PY{p}{(}
+             \PY{p}{(}\PY{n}{grp}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ATK\PYZus{}mean}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{n}{grp}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{DFS\PYZus{}mean}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{p}{,} 
+             \PY{p}{(}\PY{n+nb}{max}\PY{p}{(}\PY{n}{grp}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ATK\PYZus{}mean}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{)}\PY{o}{+}\PY{l+m+mi}{10}\PY{p}{)} \PY{o}{\PYZhy{}} \PY{n}{grp}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ATK\PYZus{}mean}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}\PY{p}{,} 
+             \PY{p}{(}\PY{n+nb}{max}\PY{p}{(}\PY{n}{grp}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{DFS\PYZus{}mean}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{)}\PY{o}{+}\PY{l+m+mi}{10}\PY{p}{)} \PY{o}{\PYZhy{}} \PY{n}{grp}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{DFS\PYZus{}mean}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}\PY{p}{,} 
+             \PY{n}{alpha}\PY{o}{=}\PY{l+m+mf}{0.1}\PY{p}{,} 
+             \PY{n}{facecolor}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{purple}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{}plt.title(\PYZsq{}Type Scatter by Base Defense \PYZam{} Attack\PYZsq{}, fontsize = 15)}
+         \PY{n}{p1}\PY{o}{.}\PY{n}{set\PYZus{}title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Type Scatter by Base Defense \PYZam{} Attack}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{fontsize} \PY{o}{=} \PY{l+m+mi}{15}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_53_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}38}]:} \PY{n}{hgrp} \PY{o}{=} \PY{n}{df}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Type}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{isin}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Dragon}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Rock}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Steel}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{p}{]}
+         \PY{n}{fig} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{,}\PY{l+m+mi}{8}\PY{p}{)}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{All Pokemons by Stats}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{fontsize} \PY{o}{=} \PY{l+m+mi}{15}\PY{p}{)}
+         \PY{n}{ax} \PY{o}{=} \PY{n}{sns}\PY{o}{.}\PY{n}{scatterplot}\PY{p}{(}\PY{n}{data} \PY{o}{=} \PY{n}{hgrp}\PY{p}{,}
+                               \PY{n}{x}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Attack}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} 
+                               \PY{n}{y}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Defense}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} 
+                               \PY{n}{size} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{HP}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} 
+                               \PY{n}{sizes} \PY{o}{=} \PY{p}{(}\PY{l+m+mi}{10}\PY{p}{,} \PY{l+m+mi}{500}\PY{p}{)}\PY{p}{,} 
+                               \PY{n}{alpha} \PY{o}{=} \PY{l+m+mf}{0.5}\PY{p}{,}
+                               \PY{n}{hue}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Type}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylim}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{210}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlim}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{210}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{setp}\PY{p}{(}\PY{n}{ax}\PY{o}{.}\PY{n}{get\PYZus{}legend}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{get\PYZus{}texts}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{n}{fontsize}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{8}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{n}{bbox\PYZus{}to\PYZus{}anchor}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)}\PY{p}{,} \PY{n}{loc}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{borderaxespad}\PY{o}{=}\PY{l+m+mf}{0.}\PY{p}{)}
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{savefig}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{all\PYZus{}pkm\PYZus{}4\PYZus{}grp.png}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_54_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}39}]:} \PY{c+c1}{\PYZsh{}sns.set(style=\PYZdq{}ticks\PYZdq{}) }
+         
+         \PY{c+c1}{\PYZsh{}g = sns.FacetGrid(hgrp, col=\PYZdq{}Type\PYZdq{}, col\PYZus{}wrap=4, height=4)}
+         \PY{c+c1}{\PYZsh{}g.set(xlim = (\PYZhy{}5,250), ylim = (0, 0.025))}
+         \PY{c+c1}{\PYZsh{}g.map(sns.distplot, \PYZdq{}Attack\PYZdq{}, color=\PYZdq{}steelblue\PYZdq{}, kde = True)}
+         
+         \PY{c+c1}{\PYZsh{}g = sns.FacetGrid(hgrp, col=\PYZdq{}Type\PYZdq{}, col\PYZus{}wrap=4, height=4)}
+         \PY{c+c1}{\PYZsh{}g.set(xlim = (\PYZhy{}5,250), ylim = (0, 0.025))}
+         \PY{c+c1}{\PYZsh{}g.map(sns.distplot, \PYZdq{}Defense\PYZdq{}, color=\PYZdq{}steelblue\PYZdq{}, kde = True)}
+         
+         \PY{c+c1}{\PYZsh{}plt.show()}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}40}]:} \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{6}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{)}\PY{p}{)}
+         
+         \PY{n}{grp} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{hgrp}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Type}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{as\PYZus{}index} \PY{o}{=} \PY{k+kc}{False}\PY{p}{)}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Total}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+         \PY{n}{grp} \PY{o}{=} \PY{n}{grp}\PY{o}{.}\PY{n}{sort\PYZus{}values}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Total}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{o}{.}\PY{n}{reset\PYZus{}index}\PY{p}{(}\PY{n}{drop}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+         
+         \PY{n}{groupedvalues} \PY{o}{=} \PY{n}{grp}
+         \PY{n}{pal} \PY{o}{=} \PY{n}{sns}\PY{o}{.}\PY{n}{color\PYZus{}palette}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Blues\PYZus{}d}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n+nb}{len}\PY{p}{(}\PY{n}{groupedvalues}\PY{p}{)}\PY{p}{)}
+         \PY{n}{rank} \PY{o}{=} \PY{n}{groupedvalues}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Total}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{.}\PY{n}{argsort}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{argsort}\PY{p}{(}\PY{p}{)} 
+         \PY{n}{g} \PY{o}{=} \PY{n}{sns}\PY{o}{.}\PY{n}{barplot}\PY{p}{(}\PY{n}{x}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Type}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{y}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Total}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{data}\PY{o}{=}\PY{n}{groupedvalues}\PY{p}{,} \PY{n}{palette}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{n}{pal}\PY{p}{[}\PY{p}{:}\PY{p}{:}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{p}{[}\PY{n}{rank}\PY{p}{]}\PY{p}{)}
+         
+         \PY{k}{for} \PY{n}{index}\PY{p}{,} \PY{n}{row} \PY{o+ow}{in} \PY{n}{groupedvalues}\PY{o}{.}\PY{n}{iterrows}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+             \PY{n}{g}\PY{o}{.}\PY{n}{text}\PY{p}{(}\PY{n}{row}\PY{o}{.}\PY{n}{name}\PY{p}{,} \PY{n}{row}\PY{o}{.}\PY{n}{Total}\PY{p}{,} \PY{n+nb}{round}\PY{p}{(}\PY{n}{row}\PY{o}{.}\PY{n}{Total}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{black}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{ha}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{center}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+             
+         \PY{n}{g}\PY{o}{.}\PY{n}{set\PYZus{}title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Pokemons Mean Totle by Type}\PY{l+s+s2}{\PYZdq{}} \PY{p}{,} \PY{n}{fontsize} \PY{o}{=} \PY{l+m+mi}{15}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{savefig}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{test.png}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{bbox\PYZus{}inches}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{tight}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_56_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}41}]:} \PY{n}{hgrp} \PY{o}{=} \PY{n}{df}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Type}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{isin}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Dragon}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Rock}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Steel}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{p}{]}
+         \PY{n}{hgrp\PYZus{}mean} \PY{o}{=} \PY{n}{hgrp}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Type}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{as\PYZus{}index} \PY{o}{=} \PY{k+kc}{False}\PY{p}{)}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}
+         \PY{n}{hgrp\PYZus{}mean}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}41}]:}      Type  Total    HP  Attack  Defense  Sp\_Atk  Sp\_Def  Speed
+         0  Dragon 501.96 78.04  102.62    79.12   82.46   83.04  76.67
+         1    Rock 437.80 64.54   88.46    99.76   60.05   73.07  51.93
+         2   Steel 464.91 64.82   83.55   119.41   63.55   79.41  54.18
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}42}]:} \PY{n}{data} \PY{o}{=} \PY{p}{[}
+             \PY{n}{go}\PY{o}{.}\PY{n}{Scatterpolar}\PY{p}{(}
+               \PY{n}{r} \PY{o}{=} \PY{n+nb}{list}\PY{p}{(}\PY{n}{hgrp\PYZus{}mean}\PY{p}{[}\PY{n}{hgrp\PYZus{}mean}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Type}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Dragon}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{HP}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Speed}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{o}{+}\PY{p}{[}\PY{n}{hgrp\PYZus{}mean}\PY{p}{[}\PY{n}{hgrp\PYZus{}mean}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Type}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Dragon}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{HP}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{]}\PY{p}{,}
+               \PY{n}{theta}\PY{o}{=}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{HP}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Attack}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Defense}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Sp\PYZus{}Atk}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Sp\PYZus{}Def}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Speed}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{HP}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,}
+               \PY{n}{fill}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{toself}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+               \PY{n}{name} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Dragon}\PY{l+s+s1}{\PYZsq{}}
+             \PY{p}{)}\PY{p}{,}
+             \PY{n}{go}\PY{o}{.}\PY{n}{Scatterpolar}\PY{p}{(}
+               \PY{n}{r} \PY{o}{=} \PY{n+nb}{list}\PY{p}{(}\PY{n}{hgrp\PYZus{}mean}\PY{p}{[}\PY{n}{hgrp\PYZus{}mean}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Type}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Steel}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{HP}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Speed}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{o}{+}\PY{p}{[}\PY{n}{hgrp\PYZus{}mean}\PY{p}{[}\PY{n}{hgrp\PYZus{}mean}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Type}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Steel}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{HP}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{]}\PY{p}{,}
+               \PY{n}{theta}\PY{o}{=}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{HP}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Attack}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Defense}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Sp\PYZus{}Atk}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Sp\PYZus{}Def}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Speed}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{HP}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,}
+               \PY{n}{fill} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{toself}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+               \PY{n}{name} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Steel}\PY{l+s+s1}{\PYZsq{}}
+             \PY{p}{)}\PY{p}{,}
+               \PY{n}{go}\PY{o}{.}\PY{n}{Scatterpolar}\PY{p}{(}
+               \PY{n}{r} \PY{o}{=} \PY{n+nb}{list}\PY{p}{(}\PY{n}{hgrp\PYZus{}mean}\PY{p}{[}\PY{n}{hgrp\PYZus{}mean}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Type}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Rock}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{HP}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Speed}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{o}{+}\PY{p}{[}\PY{n}{hgrp\PYZus{}mean}\PY{p}{[}\PY{n}{hgrp\PYZus{}mean}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Type}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Rock}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{HP}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{]}\PY{p}{,}
+               \PY{n}{theta}\PY{o}{=}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{HP}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Attack}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Defense}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Sp\PYZus{}Atk}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Sp\PYZus{}Def}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Speed}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{HP}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,}
+               \PY{n}{fill} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{toself}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+               \PY{n}{name} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Rock}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{p}{]}
+         
+         \PY{n}{layout} \PY{o}{=} \PY{n}{go}\PY{o}{.}\PY{n}{Layout}\PY{p}{(}
+           \PY{n}{polar} \PY{o}{=} \PY{n+nb}{dict}\PY{p}{(}
+             \PY{n}{radialaxis} \PY{o}{=} \PY{n+nb}{dict}\PY{p}{(}
+               \PY{n}{visible} \PY{o}{=} \PY{k+kc}{True}\PY{p}{,}
+               \PY{n+nb}{range} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{140}\PY{p}{]}
+             \PY{p}{)}
+           \PY{p}{)}\PY{p}{,}
+               
+           \PY{n}{showlegend} \PY{o}{=} \PY{k+kc}{True}\PY{p}{,}
+           \PY{n}{title} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Steel V.S. Dragon V.S. Rock}\PY{l+s+s1}{\PYZsq{}} 
+         \PY{p}{)}
+         
+         \PY{n}{fig} \PY{o}{=} \PY{n}{go}\PY{o}{.}\PY{n}{Figure}\PY{p}{(}\PY{n}{data}\PY{o}{=}\PY{n}{data}\PY{p}{,} \PY{n}{layout}\PY{o}{=}\PY{n}{layout}\PY{p}{)}
+         \PY{n}{py}\PY{o}{.}\PY{n}{iplot}\PY{p}{(}\PY{n}{fig}\PY{p}{,} \PY{n}{filename} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{radar/multiple}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    
+    
+    Thank you :)
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
